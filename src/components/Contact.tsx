@@ -24,7 +24,7 @@ interface ContactProps {
 
 export const Contact: React.FC<ContactProps> = ({ className }) => {
   const [copied, setCopied] = useState(false);
-  const email = 'email@example.com';
+  const email = 'jinyeongjang@users.noreply.github.com';
 
   const handleCopyEmail = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -43,29 +43,29 @@ export const Contact: React.FC<ContactProps> = ({ className }) => {
       className={cn('scroll-mt-24 space-y-6 border-t border-neutral-200/80 pt-14', className)}
     >
       <div className="space-y-2">
-        <span className="text-xs font-semibold tracking-wider text-neutral-400 uppercase">Contact</span>
+        <span className="text-xs font-semibold tracking-wider text-neutral-500 uppercase">Contact</span>
         <h2 className="text-2xl font-bold tracking-tight text-neutral-900 sm:text-3xl">연락처</h2>
-        <p className="text-sm text-neutral-500">궁금한 점이나 협업 제안은 언제든 편하게 연락해 주세요.</p>
+        <p className="text-sm text-neutral-600">궁금한 점이나 협업 제안은 언제든 편하게 연락해 주세요.</p>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
         {/* 이메일 카드 */}
-        <div className="group relative flex flex-col justify-between rounded-2xl border border-neutral-200/90 bg-white p-6 shadow-2xs transition-all hover:border-neutral-300 hover:shadow-sm">
+        <div className="flex flex-col justify-between rounded-2xl border border-neutral-200 bg-white p-6 transition-colors hover:border-neutral-300">
           <div>
             <div className="flex items-center justify-between">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-neutral-100 text-neutral-800 transition-colors group-hover:bg-neutral-900 group-hover:text-white">
-                <Mail className="h-5 w-5" />
+              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-neutral-100 text-neutral-800">
+                <Mail className="h-4 w-4" />
               </span>
               <button
                 type="button"
                 onClick={handleCopyEmail}
-                className="flex items-center gap-1 rounded-md px-2 py-1 text-xs text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-900"
+                className="flex items-center gap-1 rounded-md px-2 py-1 text-xs text-neutral-600 transition-colors hover:bg-neutral-100 hover:text-neutral-900 focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:outline-none"
                 title="이메일 주소 복사"
               >
                 {copied ? (
                   <>
-                    <Check className="h-3.5 w-3.5 text-emerald-600" />
-                    <span className="text-emerald-600">복사됨</span>
+                    <Check className="h-3.5 w-3.5 text-neutral-900" />
+                    <span className="font-medium text-neutral-900">복사됨</span>
                   </>
                 ) : (
                   <>
@@ -75,37 +75,37 @@ export const Contact: React.FC<ContactProps> = ({ className }) => {
                 )}
               </button>
             </div>
-            <h3 className="mt-4 font-semibold text-neutral-900">이메일</h3>
-            <p className="mt-1 text-sm text-neutral-500">문의 사항 및 메시지</p>
+            <h3 className="mt-4 font-semibold text-neutral-900">공식 이메일</h3>
+            <p className="mt-1 text-xs text-neutral-600 sm:text-sm">GitHub 연동 공식 이메일</p>
           </div>
           <a
             href={`mailto:${email}`}
-            className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-neutral-900 underline underline-offset-4 transition-colors hover:text-neutral-600"
+            className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-neutral-900 underline underline-offset-4 transition-colors hover:text-neutral-600 focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:outline-none"
           >
-            <span>{email}</span>
-            <ArrowUpRight className="h-4 w-4" />
+            <span className="break-all">{email}</span>
+            <ArrowUpRight className="h-4 w-4 shrink-0" />
           </a>
         </div>
 
         {/* 블로그 / SNS 카드 */}
         <a
-          href="https://example.com"
+          href="https://skt-aleph-jinyeongblog.vercel.app"
           target="_blank"
           rel="noopener noreferrer"
-          className="group relative flex flex-col justify-between rounded-2xl border border-neutral-200/90 bg-white p-6 shadow-2xs transition-all hover:border-neutral-300 hover:shadow-sm"
+          className="group flex flex-col justify-between rounded-2xl border border-neutral-200 bg-white p-6 transition-colors hover:border-neutral-300 focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:outline-none"
         >
           <div>
             <div className="flex items-center justify-between">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-neutral-100 text-neutral-800 transition-colors group-hover:bg-neutral-900 group-hover:text-white">
-                <Globe className="h-5 w-5" />
+              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-neutral-100 text-neutral-800">
+                <Globe className="h-4 w-4" />
               </span>
-              <ArrowUpRight className="h-4 w-4 text-neutral-400 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-neutral-900" />
+              <ArrowUpRight className="h-4 w-4 text-neutral-500 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-neutral-900" />
             </div>
-            <h3 className="mt-4 font-semibold text-neutral-900">블로그 / 기술 기록</h3>
-            <p className="mt-1 text-sm text-neutral-500">학습 과정과 기술 회고를 기록하는 공간</p>
+            <h3 className="mt-4 font-semibold text-neutral-900">기술 블로그</h3>
+            <p className="mt-1 text-xs text-neutral-600 sm:text-sm">SKT ALEPH 학습 과정과 기술 회고를 기록하는 공간</p>
           </div>
-          <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-neutral-900 underline underline-offset-4 transition-colors group-hover:text-neutral-600">
-            <span>방문하기</span>
+          <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-neutral-900 underline underline-offset-4 transition-colors group-hover:text-neutral-600">
+            <span>skt-aleph-jinyeongblog.vercel.app 방문하기</span>
           </span>
         </a>
 
@@ -114,16 +114,16 @@ export const Contact: React.FC<ContactProps> = ({ className }) => {
           href="https://github.com/jinyeongjang"
           target="_blank"
           rel="noopener noreferrer"
-          className="group relative flex flex-col justify-between rounded-2xl border border-neutral-200/90 bg-white p-6 shadow-2xs transition-all hover:border-neutral-300 hover:shadow-sm sm:col-span-2"
+          className="group flex flex-col justify-between rounded-2xl border border-neutral-200 bg-white p-6 transition-colors hover:border-neutral-300 focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:outline-none sm:col-span-2"
         >
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-neutral-100 text-neutral-800 transition-colors group-hover:bg-neutral-900 group-hover:text-white">
-                <GithubIcon className="h-5 w-5" />
+              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-neutral-100 text-neutral-800">
+                <GithubIcon className="h-4 w-4" />
               </span>
               <div>
                 <h3 className="font-semibold text-neutral-900">GitHub</h3>
-                <p className="text-xs text-neutral-500 sm:text-sm">코드 저장소 및 오픈소스 활동</p>
+                <p className="text-xs text-neutral-600">코드 저장소 및 오픈소스 활동</p>
               </div>
             </div>
             <div className="flex items-center gap-1 text-sm font-medium text-neutral-900 underline underline-offset-4 group-hover:text-neutral-600">
@@ -136,3 +136,5 @@ export const Contact: React.FC<ContactProps> = ({ className }) => {
     </motion.section>
   );
 };
+
+export default Contact;
