@@ -105,7 +105,7 @@ export const Strengths: React.FC<StrengthsProps> = ({ className }) => {
       <div className="space-y-1">
         <span className="text-xs font-semibold tracking-wider text-neutral-500 uppercase">Strengths & Character</span>
         <h2 className="text-2xl font-bold tracking-tight text-neutral-900 sm:text-3xl">나의 강점</h2>
-        <p className="text-sm text-neutral-600">현장 경험을 통해 입증된 문제 해결력과 공인 캐릭터 강점입니다.</p>
+        <p className="text-sm text-neutral-600">현장 경험을 통해 입증된 문제 해결력과 강점입니다.</p>
       </div>
 
       {/* 1. 실전 경험 기반 강점 카드 (T01-C06 상황, T01-C07 행동, T01-C08 결과, T01-C09 근거 충족) */}

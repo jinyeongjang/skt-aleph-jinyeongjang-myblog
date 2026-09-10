@@ -123,7 +123,6 @@ export const Contact: React.FC<ContactProps> = ({ className }) => {
               </span>
               <div>
                 <h3 className="font-semibold text-neutral-900">GitHub</h3>
-                <p className="text-xs text-neutral-600">코드 저장소 및 오픈소스 활동</p>
               </div>
             </div>
             <div className="flex items-center gap-1 text-sm font-medium text-neutral-900 underline underline-offset-4 group-hover:text-neutral-600">

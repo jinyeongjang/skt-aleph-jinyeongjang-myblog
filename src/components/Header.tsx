@@ -7,19 +7,28 @@ interface HeaderProps {
   className?: string;
 }
 
-const NAV_ITEMS = [
-  { href: '#about', label: '소개' },
-  { href: '#skills', label: '기술' },
-  { href: '#projects', label: '프로젝트' },
-  { href: '#education', label: '학력/이력' },
-  { href: '#strengths', label: '강점(근거)' },
-  { href: '#values', label: '가치관' },
-  { href: '#manual', label: '설명서' },
-  { href: '#contact', label: '연락처' },
+interface NavItem {
+  href: string;
+  label: string;
+  desc: string;
+}
+
+const NAV_ITEMS: NavItem[] = [
+  { href: '#about', label: '소개', desc: '성장형 개발자 가치관 및 프로필' },
+  { href: '#skills', label: '기술', desc: '보안·네트워크, 웹 개발 스택' },
+  { href: '#projects', label: '프로젝트', desc: 'SKT ALEPH 1기 핵심 활동 내역' },
+  { href: '#education', label: '학력/이력', desc: '컴퓨터공학 학력 및 교육 이력' },
+  { href: '#strengths', label: '강점(근거)', desc: 'STAR 기반 실무 경험과 공인 근거' },
+  { href: '#values', label: '가치관', desc: '협업 철학 및 핵심 직무 가치' },
+  { href: '#manual', label: '설명서', desc: '개발자 사용설명서 & 작동방식' },
+  { href: '#contact', label: '연락처', desc: '공식 이메일 및 GitHub 소통' },
 ];
 
 export const Header: React.FC<HeaderProps> = ({ className }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>('#about');
+
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('theme');
@@ -28,12 +37,56 @@ export const Header: React.FC<HeaderProps> = ({ className }) => {
     }
     return 'light';
   });
+
   const [reducedMotion, setReducedMotion] = useState(() => {
     if (typeof window !== 'undefined' && window.matchMedia) {
       return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     }
     return false;
   });
+
+  // Detect scroll for subtle shadow & elevation effect (Navbar style)
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+
+      const sectionIds = NAV_ITEMS.map((item) => item.href.slice(1));
+      const scrollPosition = window.scrollY + 140;
+
+      for (let i = sectionIds.length - 1; i >= 0; i--) {
+        const section = document.getElementById(sectionIds[i]);
+        if (section && section.offsetTop <= scrollPosition) {
+          setActiveSection(`#${sectionIds[i]}`);
+          return;
+        }
+      }
+      setActiveSection('#about');
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Close mobile menu on Escape key press or on window resize to desktop
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setMobileMenuOpen(false);
+      }
+    };
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     if (theme === 'dark') {
@@ -61,6 +114,11 @@ export const Header: React.FC<HeaderProps> = ({ className }) => {
     setReducedMotion((prev) => !prev);
   };
 
+  const handleNavClick = (href: string) => {
+    setActiveSection(href);
+    setMobileMenuOpen(false);
+  };
+
   return (
     <>
       {/* 웹 접근성 본문 바로가기 링크 (T01-C14) */}
@@ -71,151 +129,179 @@ export const Header: React.FC<HeaderProps> = ({ className }) => {
         본문 바로가기 (Skip to content)
       </a>
 
-      <motion.header
-        initial={{ opacity: 0, y: -12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: reducedMotion ? 0.01 : 0.3 }}
+      {/* 헤더 바: 심플 글래스모피즘 & 호버 언더라인 네비게이션 */}
+      <header
         className={cn(
-          'fixed inset-x-0 top-0 z-50 border-b border-neutral-200/80 bg-white/85 shadow-2xs backdrop-blur-xl transition-all dark:border-neutral-800/80 dark:bg-neutral-950/85',
+          'fixed inset-x-0 top-0 z-50 w-full transition-all duration-200',
+          isScrolled || mobileMenuOpen
+            ? 'border-b border-neutral-200/80 bg-white/85 shadow-xs backdrop-blur-md dark:border-neutral-800/80 dark:bg-neutral-950/85'
+            : 'border-b border-neutral-200/40 bg-white/60 backdrop-blur-sm dark:border-neutral-800/40 dark:bg-neutral-950/60',
           className,
         )}
       >
-        <div className="mx-auto flex h-16 max-w-4xl items-center justify-between px-4 sm:px-6">
-          {/* 브랜드 로고 */}
+        <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4 sm:px-6">
+          {/* Left: Simple Logo & Branding */}
           <a
             href="#"
-            className="group flex items-center gap-2.5 rounded-lg py-1 transition-all focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:outline-none dark:focus-visible:ring-white"
+            className="group flex items-center gap-2 text-sm font-bold tracking-tight text-neutral-900 transition-opacity hover:opacity-80 dark:text-white"
           >
-            <div className="flex flex-col">
-              <span className="text-sm font-bold tracking-tight text-neutral-900 transition-colors group-hover:text-neutral-700 dark:text-white dark:group-hover:text-neutral-200">
-                안녕하세요. SKT ALEPH 수강생 장OO 입니다.
-              </span>
-            </div>
+            <span className="relative tracking-tight">
+              jinyeongjang_myblog
+              <span className="absolute inset-x-0 -bottom-0.5 h-[1.5px] origin-left scale-x-0 rounded-full bg-neutral-900 transition-transform duration-200 ease-out group-hover:scale-x-100 dark:bg-white" />
+            </span>
           </a>
 
-          {/* 데스크톱 네비게이션 & 제어 컨트롤 */}
-          <div className="hidden items-center gap-1.5 md:flex">
-            <nav className="flex items-center gap-0.5" aria-label="메인 네비게이션">
-              {NAV_ITEMS.map((item) => (
+          {/* Center/Right: Desktop Navigation Menu with Left-to-Right Hover Underline */}
+          <nav className="hidden items-center gap-4 md:flex lg:gap-6" aria-label="메인 네비게이션">
+            {NAV_ITEMS.map((item) => {
+              const isActive = activeSection === item.href;
+              return (
                 <a
                   key={item.href}
                   href={item.href}
-                  className="rounded-lg px-2 py-1.5 text-xs font-medium text-neutral-600 transition-colors hover:bg-neutral-100 hover:text-neutral-900 focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:outline-none lg:px-2.5 lg:text-[13px] dark:text-neutral-300 dark:hover:bg-neutral-800/70 dark:hover:text-white"
+                  onClick={() => handleNavClick(item.href)}
+                  className={cn(
+                    'group relative py-1 text-xs font-semibold tracking-tight transition-colors duration-150 select-none lg:text-sm',
+                    isActive
+                      ? 'text-neutral-900 dark:text-white'
+                      : 'text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white',
+                  )}
+                  aria-current={isActive ? 'page' : undefined}
                 >
-                  {item.label}
+                  <span>{item.label}</span>
+                  {/* Underline expanding from left to right */}
+                  <span
+                    className={cn(
+                      'absolute inset-x-0 -bottom-1 h-[2px] origin-left rounded-full bg-neutral-900 transition-transform duration-200 ease-out dark:bg-white',
+                      isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100',
+                    )}
+                  />
                 </a>
-              ))}
-            </nav>
+              );
+            })}
+          </nav>
 
-            {/* 구분선 */}
-            <div className="mx-1 h-3.5 w-px bg-neutral-200 dark:bg-neutral-800" aria-hidden="true" />
-
-            {/* 유틸리티 컨트롤 버튼 그룹 (아이콘 전용) */}
-            <div className="flex items-center gap-1.5">
-              {/* 다크모드 토글 버튼 (아이콘 전용) */}
-              <button
-                type="button"
-                onClick={toggleTheme}
-                className="inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg border border-neutral-200/90 bg-neutral-50/90 text-neutral-700 shadow-2xs transition-all hover:border-neutral-300 hover:bg-white hover:text-neutral-900 hover:shadow-xs focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:outline-none dark:border-neutral-800 dark:bg-neutral-900/90 dark:text-neutral-200 dark:hover:border-neutral-700 dark:hover:bg-neutral-800 dark:hover:text-white"
-                title={theme === 'dark' ? '라이트 모드로 전환' : '다크 모드로 전환'}
-                aria-label={theme === 'dark' ? '라이트 모드로 전환' : '다크 모드로 전환'}
-              >
-                {theme === 'dark' ? (
-                  <Sun className="h-4 w-4 text-amber-500 transition-transform hover:rotate-45" />
-                ) : (
-                  <Moon className="h-4 w-4 text-neutral-600 transition-transform hover:-rotate-12 dark:text-neutral-400" />
-                )}
-              </button>
-
-              {/* 애니메이션 활성화 / 비활성화 토글 (아이콘 전용 - T01-C22 평가 규격 충족) */}
-              <button
-                type="button"
-                onClick={toggleReducedMotion}
-                className={cn(
-                  'inline-flex h-8 w-8 items-center justify-center rounded-lg border shadow-2xs transition-all focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:outline-none',
-                  !reducedMotion
-                    ? 'border-neutral-200/90 bg-neutral-50/90 text-neutral-700 hover:border-neutral-300 hover:bg-white hover:text-neutral-900 hover:shadow-xs dark:border-neutral-800 dark:bg-neutral-900/90 dark:text-neutral-200 dark:hover:border-neutral-700 dark:hover:bg-neutral-800 dark:hover:text-white'
-                    : 'border-neutral-200/70 bg-neutral-100/80 text-neutral-400 hover:bg-neutral-200/70 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-500',
-                )}
-                title={reducedMotion ? '애니메이션 켜기 (활성화)' : '애니메이션 끄기 (비활성화)'}
-                aria-label={reducedMotion ? '애니메이션 켜기' : '애니메이션 끄기'}
-                aria-pressed={!reducedMotion}
-              >
-                {reducedMotion ? (
-                  <Pause className="h-4 w-4 text-neutral-400" />
-                ) : (
-                  <Play className="h-4 w-4 fill-emerald-600/30 text-emerald-600 dark:fill-emerald-400/30 dark:text-emerald-400" />
-                )}
-              </button>
-            </div>
-          </div>
-
-          {/* 모바일 햄버거 & 컨트롤 버튼 그룹 */}
-          <div className="flex items-center gap-1.5 md:hidden">
-            <button
-              type="button"
-              onClick={toggleTheme}
-              className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-neutral-200/90 bg-neutral-50 p-1.5 text-neutral-700 transition-colors hover:bg-white focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:outline-none dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-200 dark:hover:bg-neutral-800"
-              title={theme === 'dark' ? '라이트 모드로 전환' : '다크 모드로 전환'}
-              aria-label="다크 모드 전환"
-            >
-              {theme === 'dark' ? (
-                <Sun className="h-4 w-4 text-amber-500" />
-              ) : (
-                <Moon className="h-4 w-4 text-neutral-600 dark:text-neutral-400" />
-              )}
-            </button>
+          {/* Right: Quick Action Buttons & Mobile Hamburger */}
+          <div className="flex items-center gap-1">
+            {/* Animation Toggle Button (T01-C22 규격 필수 요소) */}
             <button
               type="button"
               onClick={toggleReducedMotion}
-              className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-neutral-200/90 bg-neutral-50 p-1.5 text-neutral-700 transition-colors hover:bg-white focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:outline-none dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-200 dark:hover:bg-neutral-800"
-              title={reducedMotion ? '애니메이션 활성화하기' : '애니메이션 비활성화하기'}
-              aria-label="애니메이션 토글"
+              className={cn(
+                'flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg transition-colors',
+                !reducedMotion
+                  ? 'text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800'
+                  : 'text-neutral-400 hover:bg-neutral-100 dark:text-neutral-500 dark:hover:bg-neutral-800',
+              )}
+              title={reducedMotion ? '애니메이션 켜기 (활성화)' : '애니메이션 끄기 (비활성화)'}
+              aria-label={reducedMotion ? '애니메이션 켜기' : '애니메이션 끄기'}
+              aria-pressed={!reducedMotion}
             >
               {reducedMotion ? (
-                <Pause className="h-4 w-4 text-neutral-400" />
+                <Pause className="h-4 w-4" />
               ) : (
-                <Play className="h-4 w-4 fill-emerald-600/30 text-emerald-600 dark:text-emerald-400" />
+                <Play className="h-4 w-4 fill-current text-emerald-600 dark:text-emerald-400" />
               )}
             </button>
+
+            {/* Dark / Light Mode Switch */}
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg text-neutral-700 transition-colors hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"
+              title={theme === 'dark' ? '라이트 모드로 전환' : '다크 모드로 전환'}
+              aria-label={theme === 'dark' ? '라이트 모드로 전환' : '다크 모드로 전환'}
+            >
+              {theme === 'dark' ? <Sun className="h-4 w-4 text-amber-400" /> : <Moon className="h-4 w-4" />}
+            </button>
+
+            {/* Mobile Hamburger Menu Toggle Button */}
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-neutral-200/90 bg-neutral-50 text-neutral-700 transition-colors hover:bg-neutral-100 focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:outline-none dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-200 dark:hover:bg-neutral-800"
-              aria-label="메뉴 열기"
               aria-expanded={mobileMenuOpen}
+              aria-label="모바일 메뉴 열기/닫기"
+              className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg text-neutral-700 transition-colors hover:bg-neutral-100 md:hidden dark:text-neutral-300 dark:hover:bg-neutral-800"
             >
               {mobileMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
             </button>
           </div>
         </div>
 
-        {/* 모바일 메뉴 드롭다운 */}
+        {/* Mobile Dropdown Menu Drawer */}
         <AnimatePresence>
           {mobileMenuOpen && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: reducedMotion ? 0.01 : 0.2 }}
-              className="border-b border-neutral-200/80 bg-white/95 px-4 py-3 shadow-lg backdrop-blur-xl md:hidden dark:border-neutral-800/80 dark:bg-neutral-950/95"
+              transition={{ duration: 0.2 }}
+              className="overflow-hidden border-t border-neutral-200/80 bg-white/95 backdrop-blur-xl md:hidden dark:border-neutral-800/80 dark:bg-neutral-950/95"
             >
-              <nav className="grid grid-cols-2 gap-1.5">
-                {NAV_ITEMS.map((item) => (
+              <div className="space-y-1 px-4 py-3 sm:px-6">
+                {NAV_ITEMS.map((item) => {
+                  const isActive = activeSection === item.href;
+                  return (
+                    <a
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => handleNavClick(item.href)}
+                      className={cn(
+                        'group flex items-center justify-between rounded-lg px-3 py-2 text-sm font-medium transition-colors',
+                        isActive
+                          ? 'bg-neutral-100 font-semibold text-neutral-900 dark:bg-neutral-800 dark:text-white'
+                          : 'text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-900 dark:hover:text-white',
+                      )}
+                      aria-current={isActive ? 'page' : undefined}
+                    >
+                      <span className="relative">
+                        {item.label}
+                        <span
+                          className={cn(
+                            'absolute inset-x-0 -bottom-0.5 h-[1.5px] origin-left rounded-full bg-neutral-900 transition-transform duration-200 ease-out dark:bg-white',
+                            isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100',
+                          )}
+                        />
+                      </span>
+                      <span className="text-xs text-neutral-400 dark:text-neutral-500">{item.desc}</span>
+                    </a>
+                  );
+                })}
+
+                {/* Mobile Quick Controls */}
+                <div className="flex items-center justify-between border-t border-neutral-100 pt-3 text-xs text-neutral-500 dark:border-neutral-800 dark:text-neutral-400">
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={toggleReducedMotion}
+                      className="flex items-center gap-1 rounded-md px-2 py-1 transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                    >
+                      {reducedMotion ? <Pause className="h-3.5 w-3.5" /> : <Play className="h-3.5 w-3.5" />}
+                      <span>{reducedMotion ? '모션 꺼짐' : '모션 켜짐'}</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={toggleTheme}
+                      className="flex items-center gap-1 rounded-md px-2 py-1 transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                    >
+                      {theme === 'dark' ? <Sun className="h-3.5 w-3.5" /> : <Moon className="h-3.5 w-3.5" />}
+                      <span>{theme === 'dark' ? '라이트 모드' : '다크 모드'}</span>
+                    </button>
+                  </div>
                   <a
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="rounded-lg px-3 py-2 text-xs font-medium text-neutral-700 transition-colors hover:bg-neutral-100 hover:text-neutral-900 focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:outline-none dark:text-neutral-200 dark:hover:bg-neutral-800/80 dark:hover:text-white"
+                    href="https://github.com/jinyeongjang"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline-offset-4 transition-colors hover:text-neutral-900 hover:underline dark:hover:text-white"
                   >
-                    {item.label}
+                    GitHub
                   </a>
-                ))}
-              </nav>
+                </div>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
-      </motion.header>
+      </header>
     </>
   );
 };
