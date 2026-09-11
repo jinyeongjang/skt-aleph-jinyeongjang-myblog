@@ -1,61 +1,112 @@
-# 나를 소개하는 한 페이지 (Starter Blank Template)
+# 🌐 SKT ALEPH 장진영 포트폴리오 — 나를 소개하는 한 페이지
 
-React, Tailwind CSS, Framer Motion이 세팅된 깔끔한 1페이지 빈 템플릿입니다.
+> **SKT ALEPH 1기 기업 현장 중심 보안 & 네트워크 인프라 트랙**  
+> 개발자 장진영의 핵심 가치관, 실무 기술 역량, 프로젝트 및 학습 경험을 투명하게 공유하는 반응형 포트폴리오 웹입니다.
+
+[![Vercel Deployment](https://img.shields.io/badge/Vercel-Live%20Demo-black?style=flat&logo=vercel)](https://skt-aleph-jinyeongjang-myblog.vercel.app)
+[![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-181717?style=flat&logo=github)](https://github.com/jinyeongjang/skt-aleph-jinyeongjang-myblog)
+[![React 19](https://img.shields.io/badge/React-19.0-61DAFB?style=flat&logo=react)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?style=flat&logo=typescript)](https://www.typescriptlang.org)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-38B2AC?style=flat&logo=tailwind-css)](https://tailwindcss.com)
+[![Oxlint](https://img.shields.io/badge/Oxlint-Passing-00C7B7?style=flat)](https://oxc.rs)
 
 ---
 
-## 📂 파일 구성
+## 🌟 핵심 특징 (Key Highlights)
 
-- [`src/App.tsx`](src/App.tsx): 메인 자기소개 페이지 코드 (이 파일 하나에서 바로 수정 시작)
-- [`src/index.css`](src/index.css): Tailwind CSS 설정
+- **무로그인 공개 정적 웹 (T01-C01, T01-C02)**: 별도의 회원가입이나 인증 절차 없이 브라우저 시크릿 창에서 즉시 모든 콘텐츠 열람 가능
+- **기준 해상도 첫 화면 3요소 노출 (T01-C10, T01-C11)**: 1366×768 및 1920×1080 해상도에서 스크롤 없이 **01 소개(Intro) · 02 활동(Activities) · 03 근거(Evidence)** 3대 요소가 첫 화면(Above the Fold)에 동시 노출
+- **STAR 기반 4대 핵심 강점 (T01-C06 ~ T01-C09)**: 현장 실무 경험을 바탕으로 **상황(Situation) · 행동(Action) · 결과(Result) · 공개 근거(Evidence)** 4단계 모델을 적용하여 객관적으로 입증
+- **2년 10개월 실무 경력 및 5대 탭 분류 이력서**: (주)블루커뮤니케이션 매니저 실무, (주)케이티씨에스 IT 전문 강사, 컴퓨터공학 학사(3.97/4.5), 국가공인 자격 및 수상 이력
+- **웹 접근성 & 모션 제어 (WCAG AA · T01-C13 ~ T01-C22)**:
+  - 본문 바로가기(`Skip to content`) 링크 및 모든 대화형 요소 초점 링(`focus-visible:ring-2`)
+  - 흰색/다크 배경 기준 명암비 4.5:1 이상 전수 준수 (`text-neutral-500` 이상)
+  - 상단 헤더 '애니메이션 활성화/비활성화' 토글 및 `prefers-reduced-motion` 자동 연동
+- **테마 시스템 (Light / Dark Mode)**: 모노크롬 & 글래스모피즘 기반 다크 모드 지원 및 `localStorage` 영구 보존
+- **보안 및 개인정보 보호 (T01-C23, T01-C24)**: 법적 민감 식별정보(주민번호/자택주소) 및 사적 연락처, API 시크릿 0건 전수 감사 통과
 
 ---
 
-## 🚀 개발 서버 실행
+## 📂 프로젝트 구조 및 컴포넌트 아키텍처
 
-```bash
-npm run dev
+```text
+skt-aleph-jinyeongjang-myblog/
+├── condition/                  # 과제 평가 기준 공식 이미지 (condi-1 ~ condi-6)
+├── public/                     # 정적 웹 에셋
+├── src/
+│   ├── assets/                 # 이미지 및 리소스
+│   ├── components/
+│   │   ├── Header.tsx          # 고정 헤더, 네비게이션, 테마 및 애니메이션 토글 (T01-C14, C22)
+│   │   ├── Hero.tsx            # 히어로 타이틀, 태그, 첫 화면 3요소 퀵 프리뷰 (T01-C10, C11, C15)
+│   │   ├── About.tsx           # 대상·목적 1문장, 공개/비공개 정보 점검표 탭 (T01-C03 ~ C05, C19 ~ C21)
+│   │   ├── Skills.tsx          # 4대 기술 스택 분류 (Frontend, Backend, Cloud/Infra, Tools)
+│   │   ├── Projects.tsx        # 6대 실전 프로젝트 라이브 데모 및 GitHub 저장소 (T01-C13)
+│   │   ├── Education.tsx       # 2년 10개월 실무 경력, 학력, 자격, 수상 5대 탭 컴포넌트
+│   │   ├── Strengths.tsx       # STAR 모델 기반 4대 실전 강점 및 공인 근거 (T01-C06 ~ C09)
+│   │   ├── Values.tsx          # 3대 핵심 가치 및 직무 가치관
+│   │   ├── WorkStyle.tsx       # 협업 사용설명서, 충전 요소 및 주의사항
+│   │   ├── Contact.tsx         # 공식 소통 채널 (noreply 이메일, GitHub, 원클릭 복사)
+│   │   └── Footer.tsx          # 푸터 및 저작권 명시
+│   ├── lib/
+│   │   └── utils.ts            # clsx / tailwind-merge 유틸리티
+│   ├── App.tsx                 # 최상위 레이아웃 및 가로 넘침 방지 (T01-C12)
+│   ├── index.css               # Tailwind CSS v4 스타일시트
+│   └── main.tsx                # 애플리케이션 엔트리 포인트
+├── CRITERIA.md                 # 26개 세부 평가 기준 공식 명세서 (T01-C01 ~ T01-C26)
+├── GEMINI.md                   # 프로젝트 품질 표준 및 AI 가이드라인
+├── GITMOJI.md                  # Gitmoji 커밋 컨벤션 가이드
+├── package.json                # 의존성 및 스크립트 정의
+└── README.md                   # 프로젝트 소개 및 과제 제출서
 ```
 
-브라우저에서 `http://localhost:5173` 접속 후 `src/App.tsx`를 자유롭게 수정하시면 실시간으로 반영(HMR)됩니다.
+---
+
+## 🛠️ 기술 스택 (Tech Stack)
+
+| 구분             | 기술 / 도구              | 활용 목적                                                   |
+| :--------------- | :----------------------- | :---------------------------------------------------------- |
+| **Core**         | React 19, TypeScript 5.9 | 모던 컴포넌트 기반 UI 개발 및 엄격한 타입 안정성 보장       |
+| **Styling**      | Tailwind CSS v4          | 글래스모피즘, 반응형 그리드, 유틸리티 퍼스트 스타일링       |
+| **Animation**    | Framer Motion            | 부드러운 진입/전환 애니메이션 및 `reduced-motion` 모션 감속 |
+| **Icons**        | Lucide React             | 경량화된 고품질 벡터 아이콘                                 |
+| **Tooling**      | Vite 8.2                 | 초고속 HMR 개발 환경 및 최적화된 프로덕션 번들링            |
+| **Code Quality** | Prettier, Oxlint         | 자동 포맷팅 및 초고속 Rust 기반 정적 린팅 (오류 0건)        |
+| **Deployment**   | Vercel                   | 무로그인 글로벌 CDN 정적 웹 배포                            |
 
 ---
 
-## 🎨 코드 포맷팅 (Prettier)
-
-Tailwind CSS 클래스 자동 정렬 플러그인이 적용되어 있습니다.
+## 💻 로컬 개발 및 품질 검증 스크립트
 
 ```bash
-# 코드 포맷팅 검사
-npm run format:check
+# 1. 의존성 패키지 설치
+npm install
 
-# 전체 코드 자동 포맷팅
+# 2. 로컬 개발 서버 구동 (HMR)
+npm run dev
+
+# 3. 코드 스타일 자동 포맷팅 (Prettier)
 npm run format
+
+# 4. 코드 품질 정적 분석 (Oxlint 오류 0건)
+npm run lint
+
+# 5. TypeScript 컴파일 및 프로덕션 번들링 빌드
+npm run build
 ```
 
 ---
 
 ## 💬 Gitmoji 커밋 컨벤션
 
-본 프로젝트는 Gitmoji와 Notion Develop-commit 컨벤션을 준수합니다. 상세 규격은 [`GITMOJI.md`](GITMOJI.md)를 참고하세요.
-
-### Git 커밋 템플릿 사용 방법
-
-로컬 환경에 `.gitmessage.txt` 템플릿이 연동되어 있어 `git commit` 실행 시 템플릿 가이드가 자동으로 표시됩니다:
+본 프로젝트는 **Gitmoji + Conventional Commits** 규칙을 엄격히 적용합니다. 상세 규격은 [`GITMOJI.md`](GITMOJI.md)를 참고하세요.
 
 ```bash
-# 1. 변경 사항 스테이징
-git add .
+# Git 커밋 템플릿 로컬 설정
+git config --local commit.template .gitmessage.txt
 
-# 2. 커밋 실행 (에디터에 .gitmessage.txt 템플릿 자동 로드)
+# 커밋 실행
 git commit
 ```
-
-> 최초 1회 수동 등록이 필요한 경우:
->
-> ```bash
-> git config --local commit.template .gitmessage.txt
-> ```
 
 ---
 
