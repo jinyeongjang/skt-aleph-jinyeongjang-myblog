@@ -85,7 +85,7 @@ const PROJECTS: ProjectItem[] = [
     category: '맞춤형 메뉴 추천 PWA 웹앱',
     period: '2024.08 - 2024.10',
     description:
-      '미각을 깨우는 맞춤형 음식 메뉴 추천 서비스로, 위치 기반 추천과 오프라인 접근성을 지원하는 PWA를 적용했습니다.',
+      '미각을 깨우는 맞춤형 음식 메뉴 추천 서비스로, 위치 기반 추천과 오프라인 접근성을 지원하는 PWA를 적용했습니다. 사업팀의 예산 부족으로 인해 상용화까지 진행되지는 못했던 프로젝트입니다.',
     highlight: 'AWS EC2, CloudFront, Route53 클라우드 인프라 구축 배포 및 구글·네이버 포털 검색엔진(SEO) 최적화',
     technologies: [
       'React',

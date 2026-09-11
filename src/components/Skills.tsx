@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Layout, Server, Wrench, Shield } from 'lucide-react';
+import { Layout, Server, Wrench, Shield, BookOpen } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 interface SkillsProps {
@@ -19,7 +19,7 @@ const SKILL_CATEGORIES: SkillCategory[] = [
     title: 'Frontend Development',
     icon: Layout,
     description: '사용자 친화적이고 반응성이 뛰어난 모던 웹 인터페이스 구축',
-    skills: ['React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Zustand', 'HTML5 / CSS3', 'JavaScript (ES6+)'],
+    skills: ['React 19', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Zustand', 'HTML5 / CSS3', 'JavaScript (ES6+)'],
   },
   {
     title: 'Backend & Database',
@@ -32,6 +32,19 @@ const SKILL_CATEGORIES: SkillCategory[] = [
     icon: Shield,
     description: '클라우드 인프라 설계, 배포 자동화 및 보안 아키텍처 학습',
     skills: ['AWS (EC2, S3, CloudFront, Route53, RDS)', 'Docker', 'Vercel', 'Network (TCP/IP)', 'Linux 보안'],
+  },
+  {
+    title: 'SW·AI Education & Operations',
+    icon: BookOpen,
+    description: '부산SW·AI교육거점센터 운영, 디지털배움터 맞춤형 IT 강의 및 빅데이터 분석',
+    skills: [
+      '부산SW·AI교육거점센터 운영',
+      '디지털배움터 전문 IT 강의',
+      '사회복지 빅데이터 분석 (통계/설문)',
+      'SW 교구 실습 (엔트리, 메이키메이키, 스마트홈, 카미봇)',
+      '센터 안전 및 자재/교구 관리',
+      'ITQ OA 자격 지도',
+    ],
   },
   {
     title: 'Tools & DevOps',
@@ -49,30 +62,39 @@ export const Skills: React.FC<SkillsProps> = ({ className }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.4 }}
-      className={cn('scroll-mt-24 space-y-8 border-t border-neutral-200/80 pt-12', className)}
+      className={cn(
+        'scroll-mt-24 space-y-8 border-t border-neutral-200/80 pt-12 dark:border-neutral-800/80',
+        className,
+      )}
     >
       <div className="space-y-1">
-        <span className="text-xs font-semibold tracking-wider text-neutral-500 uppercase">Technical Skills</span>
-        <h2 className="text-2xl font-bold tracking-tight text-neutral-900 sm:text-3xl">기술 스택</h2>
-        <p className="text-sm text-neutral-600">실제 프로젝트 개발과 인프라 구축에 활용해 온 핵심 기술입니다.</p>
+        <span className="text-xs font-semibold tracking-wider text-neutral-500 uppercase dark:text-neutral-400">
+          Technical & Professional Skills
+        </span>
+        <h2 className="text-2xl font-bold tracking-tight text-neutral-900 sm:text-3xl dark:text-white">
+          기술 스택 & 직무 역량
+        </h2>
+        <p className="text-sm text-neutral-600 dark:text-neutral-400">
+          실제 프로젝트 개발과 인프라 구축, SW·AI 교육 센터 운영 및 현장 강의에 활용해 온 핵심 역량입니다.
+        </p>
       </div>
 
-      <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2 lg:grid-cols-3">
         {SKILL_CATEGORIES.map((category) => {
           const Icon = category.icon;
           return (
             <div
               key={category.title}
-              className="flex flex-col justify-between rounded-2xl border border-neutral-200 bg-white p-6 transition-colors hover:border-neutral-300"
+              className="flex flex-col justify-between rounded-2xl border border-neutral-200 bg-white p-6 transition-colors hover:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-900/90 dark:hover:border-neutral-700"
             >
               <div>
                 <div className="flex items-center gap-2.5">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-neutral-100 text-neutral-800">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200">
                     <Icon className="h-4 w-4" />
                   </span>
                   <div>
-                    <h3 className="text-base font-bold text-neutral-900">{category.title}</h3>
-                    <p className="text-[11px] text-neutral-500">{category.description}</p>
+                    <h3 className="text-base font-bold text-neutral-900 dark:text-white">{category.title}</h3>
+                    <p className="text-[11px] text-neutral-500 dark:text-neutral-400">{category.description}</p>
                   </div>
                 </div>
 
@@ -80,7 +102,7 @@ export const Skills: React.FC<SkillsProps> = ({ className }) => {
                   {category.skills.map((skill) => (
                     <span
                       key={skill}
-                      className="rounded-md border border-neutral-100 bg-neutral-50 px-2.5 py-1 text-xs font-medium text-neutral-700"
+                      className="rounded-md border border-neutral-100 bg-neutral-50 px-2.5 py-1 text-xs font-medium text-neutral-700 dark:border-neutral-800 dark:bg-neutral-800/70 dark:text-neutral-300"
                     >
                       {skill}
                     </span>

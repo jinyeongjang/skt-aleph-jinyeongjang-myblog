@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, ArrowRight, ArrowDown, Mail, BookOpen, FolderCode, Zap } from 'lucide-react';
+import { Sparkles, ArrowRight, ArrowDown, BookOpen, FolderCode, Zap } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 interface HeroProps {
@@ -56,7 +56,7 @@ export const Hero: React.FC<HeroProps> = ({ className }) => {
 
         {/* 태그 칩 (Hero2 스타일) */}
         <div className="flex flex-wrap gap-1.5 pt-0.5 sm:gap-2">
-          {['#책임감', '#소명_성취', '#따뜻한_공동체', '#보안_인프라'].map((tag) => (
+          {['#책임감', '#소명_성취', '#배움과_나눔', '#SW_AI교육운영', '#보안_인프라'].map((tag) => (
             <span
               key={tag}
               className="inline-flex items-center rounded-lg border border-slate-200/80 bg-slate-100/80 px-2.5 py-1 text-xs font-semibold text-slate-600 transition-colors duration-150 hover:border-blue-300/60 hover:bg-blue-50/60 hover:text-blue-700 dark:border-slate-800 dark:bg-slate-800/70 dark:text-slate-400 dark:hover:border-blue-700/60 dark:hover:bg-blue-950/50 dark:hover:text-blue-300"
@@ -90,17 +90,6 @@ export const Hero: React.FC<HeroProps> = ({ className }) => {
             <Zap className="h-4 w-4 fill-amber-500 text-amber-500 transition-transform duration-200 group-hover:scale-105 dark:fill-amber-400 dark:text-amber-400" />
             <span>작동방식 & 설명서</span>
             <ArrowDown className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-y-0.5" />
-          </motion.a>
-
-          <motion.a
-            href="#contact"
-            whileHover={{ y: -1.5 }}
-            whileTap={{ scale: 0.97 }}
-            transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-            className="group inline-flex items-center gap-1.5 rounded-xl border border-slate-200/80 bg-slate-100/80 px-3.5 py-2 text-xs font-bold text-slate-700 shadow-2xs backdrop-blur-md transition-all duration-200 hover:border-slate-300 hover:bg-white hover:text-slate-900 sm:px-4 sm:text-sm dark:border-slate-700/80 dark:bg-slate-800/80 dark:text-slate-200 dark:hover:border-slate-600 dark:hover:bg-slate-700"
-          >
-            <Mail className="h-4 w-4 text-slate-500 transition-transform duration-200 group-hover:scale-105 dark:text-slate-400" />
-            <span>연락하기</span>
           </motion.a>
         </div>
 
@@ -159,10 +148,10 @@ export const Hero: React.FC<HeroProps> = ({ className }) => {
               <ArrowRight className="h-3.5 w-3.5 text-cyan-500 opacity-60 transition-transform group-hover:scale-110 group-hover:opacity-100" />
             </div>
             <p className="mt-2 text-xs font-bold text-slate-900 transition-colors group-hover:text-cyan-600 sm:text-sm dark:text-white dark:group-hover:text-cyan-400">
-              라이브 데모 & 구청장 표창
+              다양한 프로젝트 경험 & 디지털역량향상에 기여하여 부산광역시 사상구청장 표창
             </p>
             <p className="mt-0.5 text-[11px] leading-relaxed text-slate-600 dark:text-slate-400">
-              실제 웹 배포, KDT 부트캠프 과제상, 사상구청장 표창, 학과 수석 3.97
+              실제 웹 배포, 2년 10개월 교육 실무 경력, 사상구청장 표창, 학점 3.97
             </p>
           </a>
         </div>

@@ -45,7 +45,7 @@ export const Contact: React.FC<ContactProps> = ({ className }) => {
       <div className="space-y-2">
         <span className="text-xs font-semibold tracking-wider text-neutral-500 uppercase">Contact</span>
         <h2 className="text-2xl font-bold tracking-tight text-neutral-900 sm:text-3xl">연락처</h2>
-        <p className="text-sm text-neutral-600">궁금한 점이나 협업 제안은 언제든 편하게 연락해 주세요.</p>
+        <p className="text-sm text-neutral-600">궁금한 점은 편하게 연락해 주세요.</p>
       </div>
 
       <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
