@@ -32,9 +32,11 @@ export const PasskeyVault: React.FC = () => {
   const [authToken, setAuthToken] = useState<string | null>(null);
   const [currentUser, setCurrentUser] = useState<{ id: string; username: string; displayName: string } | null>(null);
 
-  // Private Data & Passkey List
+  // Private Data & Passkey List (T08-C42, T08-C43)
   const [privateItems, setPrivateItems] = useState<PrivateItem[]>([]);
-  const [passkeys, setPasskeys] = useState<PasskeyCredential[]>([]);
+  const [passkeys, setPasskeys] = useState<PasskeyCredential[]>(
+    () => passkeyServer.getUser('jinyeong')?.credentials || [],
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [feedbackMessage, setFeedbackMessage] = useState<{ type: 'success' | 'error' | 'info'; text: string } | null>(
     null,
@@ -57,12 +59,21 @@ export const PasskeyVault: React.FC = () => {
     explanation: string;
   } | null>(null);
 
+  // Change selected user and sync local state if not logged in
+  const handleSelectUser = (userKey: 'jinyeong' | 'evaluator_test') => {
+    setSelectedUser(userKey);
+    if (!authToken) {
+      const user = passkeyServer.getUser(userKey);
+      setPasskeys(user ? [...user.credentials] : []);
+    }
+  };
+
   // Refresh Audit Logs & State
   const refreshAuditLogs = () => {
     setAuditLogs(passkeyServer.getAuditLogs());
   };
 
-  // Fetch private items and passkeys when logged in
+  // Fetch private items and passkeys when logged in (T08-C43)
   useEffect(() => {
     let isMounted = true;
     if (!authToken || !currentUser) {
@@ -140,6 +151,9 @@ export const PasskeyVault: React.FC = () => {
         if (authToken) {
           const keysRes = await PasskeyClient.listPasskeys(authToken);
           if (keysRes.success && keysRes.data) setPasskeys(keysRes.data);
+        } else {
+          const user = passkeyServer.getUser(selectedUser);
+          if (user) setPasskeys([...user.credentials]);
         }
       } else if (res.cancelled) {
         // T08-C25: Registration cancellation handled gracefully
@@ -162,21 +176,34 @@ export const PasskeyVault: React.FC = () => {
 
   // Handle Delete Passkey (T08-C44, T08-C45, T08-C46)
   const handleDeletePasskey = async (credentialId: string, name: string) => {
-    if (!authToken) return;
     if (!confirm(`'${name}' 패스키를 정말 삭제하시겠습니까?`)) return;
 
     setIsLoading(true);
     try {
-      const res = await PasskeyClient.deletePasskey(authToken, credentialId);
-      if (res.success) {
-        setFeedbackMessage({
-          type: 'info',
-          text: res.message || '패스키가 삭제되었습니다.',
-        });
-        const keysRes = await PasskeyClient.listPasskeys(authToken);
-        if (keysRes.success && keysRes.data) setPasskeys(keysRes.data);
+      if (authToken) {
+        const res = await PasskeyClient.deletePasskey(authToken, credentialId);
+        if (res.success) {
+          setFeedbackMessage({
+            type: 'info',
+            text: res.message || '패스키가 삭제되었습니다.',
+          });
+          const keysRes = await PasskeyClient.listPasskeys(authToken);
+          if (keysRes.success && keysRes.data) setPasskeys(keysRes.data);
+        } else {
+          setFeedbackMessage({ type: 'error', text: res.error || '패스키 삭제 실패' });
+        }
       } else {
-        setFeedbackMessage({ type: 'error', text: res.error || '패스키 삭제 실패' });
+        const res = await passkeyServer.deletePasskey(selectedUser, credentialId);
+        if (res.success) {
+          setFeedbackMessage({
+            type: 'info',
+            text: res.message || '패스키가 삭제되었습니다.',
+          });
+          const user = passkeyServer.getUser(selectedUser);
+          if (user) setPasskeys([...user.credentials]);
+        } else {
+          setFeedbackMessage({ type: 'error', text: res.error || '패스키 삭제 실패' });
+        }
       }
     } catch (err: unknown) {
       const errorMsg = err instanceof Error ? err.message : String(err);
@@ -195,7 +222,8 @@ export const PasskeyVault: React.FC = () => {
     setAuthToken(null);
     setCurrentUser(null);
     setPrivateItems([]);
-    setPasskeys([]);
+    const defaultUser = passkeyServer.getUser(selectedUser);
+    setPasskeys(defaultUser ? [...defaultUser.credentials] : []);
     setFeedbackMessage({
       type: 'info',
       text: '로그아웃되었습니다. 발급된 세션 토큰은 서버에서 즉시 무효화(Blacklist)되었습니다.',
@@ -515,7 +543,7 @@ export const PasskeyVault: React.FC = () => {
                     <span>로그인 계정 선택:</span>
                     <button
                       type="button"
-                      onClick={() => setSelectedUser('jinyeong')}
+                      onClick={() => handleSelectUser('jinyeong')}
                       className={cn(
                         'cursor-pointer rounded-md px-2.5 py-1 transition-all hover:underline',
                         selectedUser === 'jinyeong'
@@ -527,7 +555,7 @@ export const PasskeyVault: React.FC = () => {
                     </button>
                     <button
                       type="button"
-                      onClick={() => setSelectedUser('evaluator_test')}
+                      onClick={() => handleSelectUser('evaluator_test')}
                       className={cn(
                         'cursor-pointer rounded-md px-2.5 py-1 transition-all hover:underline',
                         selectedUser === 'evaluator_test'
@@ -625,22 +653,58 @@ export const PasskeyVault: React.FC = () => {
           <div className="space-y-4">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div>
-                <h3 className="text-base font-bold text-neutral-900 sm:text-lg dark:text-white">
-                  등록된 패스키 목록 (총 {passkeys.length}개)
-                </h3>
-                <p className="text-xs text-neutral-600 dark:text-neutral-400">
+                <div className="flex items-center gap-2">
+                  <h3 className="text-base font-bold text-neutral-900 sm:text-lg dark:text-white">
+                    등록된 패스키 목록 (총 {passkeys.length}개)
+                  </h3>
+                  <span className="rounded-md bg-neutral-100 px-2 py-0.5 text-xs font-semibold text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300">
+                    계정: {authToken ? currentUser?.displayName : selectedUser === 'jinyeong' ? '장진영' : '평가위원'}
+                  </span>
+                </div>
+                <p className="mt-0.5 text-xs text-neutral-600 dark:text-neutral-400">
                   기기 분실에 대비하여 2개 이상의 패스키를 등록해 둘 수 있습니다. (T08-C42 준수)
                 </p>
               </div>
 
-              <button
-                type="button"
-                onClick={() => setIsRegisterModalOpen(true)}
-                className="flex items-center gap-1.5 rounded-lg bg-neutral-900 px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-neutral-800 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-100"
-              >
-                <PlusCircle className="h-3.5 w-3.5" />
-                <span>추가 패스키 등록</span>
-              </button>
+              <div className="flex items-center gap-2">
+                {!authToken && (
+                  <div className="flex items-center rounded-lg border border-neutral-200 bg-neutral-100 p-0.5 text-xs dark:border-neutral-700 dark:bg-neutral-800">
+                    <button
+                      type="button"
+                      onClick={() => handleSelectUser('jinyeong')}
+                      className={cn(
+                        'cursor-pointer rounded-md px-2 py-1 font-semibold transition-all hover:underline',
+                        selectedUser === 'jinyeong'
+                          ? 'bg-white text-neutral-900 shadow-xs dark:bg-neutral-700 dark:text-white'
+                          : 'text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white',
+                      )}
+                    >
+                      장진영
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleSelectUser('evaluator_test')}
+                      className={cn(
+                        'cursor-pointer rounded-md px-2 py-1 font-semibold transition-all hover:underline',
+                        selectedUser === 'evaluator_test'
+                          ? 'bg-white text-neutral-900 shadow-xs dark:bg-neutral-700 dark:text-white'
+                          : 'text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white',
+                      )}
+                    >
+                      평가위원
+                    </button>
+                  </div>
+                )}
+
+                <button
+                  type="button"
+                  onClick={() => setIsRegisterModalOpen(true)}
+                  className="flex items-center gap-1.5 rounded-lg bg-neutral-900 px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-neutral-800 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-100"
+                >
+                  <PlusCircle className="h-3.5 w-3.5" />
+                  <span>추가 패스키 등록</span>
+                </button>
+              </div>
             </div>
 
             {passkeys.length === 0 ? (
