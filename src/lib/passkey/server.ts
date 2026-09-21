@@ -93,46 +93,48 @@ class PasskeyServerDatabase {
     this.users.set('jinyeong', userJinyeong);
     this.users.set('evaluator_test', userEvaluator);
 
-    // Seed Private Mock Data (T08-C14: 3+ items, strictly mock/educational, no real PII)
+    // Seed Private Mock Data (T08-C14: 3+ items, beginner-friendly network & access control notes, strictly mock/educational, no real PII)
     this.privateData.set('jinyeong', [
       {
         id: 'priv_jy_01',
-        category: '프로젝트 기획',
-        title: '미공개 차세대 AI 기반 제로 트러스트 엔드포인트 이상 탐지 아키텍처 초안',
-        badge: 'CONFIDENTIAL',
-        summary: 'eBPF 기반 커널 이벤트 추적 및 로컬 LLM 연동 실시간 악성 행위 격리 시스템 설계서',
+        category: '네트워크 기초 실습',
+        title: '입문자를 위한 홈 네트워크 기초와 공유기 방화벽/포트포워딩 실습 계획서',
+        badge: 'NET SPRINT',
+        summary:
+          'SKT ALEPH 1주차 네트워크 기초 세션에서 배운 IP 주소 체계(공인 IP/사설 IP)와 공유기 포트포워딩 실습 기획',
         details:
-          '네트워크 트래픽 인스펙션 및 시스템 콜(Syscall) 시퀀스를 실시간 분석하여 제로데이 공격 발생 시 50ms 이내에 프로세스 격리 및 방화벽 룰 자동 생성.',
+          '내부망(192.168.0.x)과 외부 인터넷의 차이를 배우고, 내 PC의 웹 서버(8080 포트)를 공유기 방화벽 규칙을 통해 외부에서 접속할 수 있도록 열어주는 포트포워딩과 방화벽 인바운드 규칙 실습 메모.',
         updatedAt: '2026-09-20',
       },
       {
         id: 'priv_jy_02',
-        category: '취업 목표 분석',
-        title: '2026 SKT 인프라/보안 엔지니어 직무 역량 분석 및 기술 면접 대비 요약',
-        badge: 'CAREER NOTE',
-        summary: 'SKT ALEPH 1기 프로젝트 경험과 기업 현장 인프라 요구사항 매핑',
+        category: '접근 통제 회고',
+        title: '비밀번호 없는 접근 통제! FIDO2 패스키와 화이트리스트 IP 차단 실습 일지',
+        badge: 'AUTH RETRO',
+        summary: '패스키(WebAuthn) 인증과 특정 IP만 접속을 허용하는 기초 접근 통제 규칙을 적용하며 배운 점과 오류 해결',
         details:
-          'BGP 라우팅 프로토콜 트러블슈팅, Kubernetes 네트워크 CNI 보안 정책 구성, WebAuthn 기반 패스키 무암호화 인증 전환 전략 및 장애 대응 시나리오 정리.',
+          '비밀번호 대신 내 기기의 지문/얼굴 인식으로 1차 인증을 통과하고, 사전에 등록된 관리자 IP가 아니면 접근을 거절(HTTP 403)하는 이중 접근 통제 흐름을 이해하고 직접 테스트해 본 초보자의 실습 기록.',
         updatedAt: '2026-09-19',
       },
       {
         id: 'priv_jy_03',
-        category: '취약점 회고',
-        title: '상반기 모의해킹 실습 취약점 분석 오답 노트 및 시큐어 코딩 개선 일지',
-        badge: 'POST-MORTEM',
-        summary: 'OWASP Top 10 기준 취약점 12건에 대한 완화 코드 패치 및 방어 기법 기록',
+        category: '네트워크 주간 회고',
+        title: '패킷이 오가는 길! Wireshark로 엿본 TCP 3-Way Handshake와 HTTP 상태 코드',
+        badge: 'PACKET NOTE',
+        summary: '브라우저가 웹 서버에 연결할 때 주고받는 SYN, SYN-ACK, ACK 패킷과 401/403 거절 응답 패킷 캡처 분석',
         details:
-          'JWT None 알고리즘 공격 방어, WebAuthn 서명 검증 시 DER/IEEE 변환 오차 해결, IDOR 방어를 위한 유저 세션 소유권 엄격 바인딩 패턴 정립.',
+          "수업 중 Wireshark 도구로 웹 요청 패킷을 직접 캡처해 보며, '연결을 시작하는 3단계 인사(Handshake)'와 인증 실패 시 서버가 돌려주는 401/403 패킷의 구조를 눈으로 직접 확인한 신기한 배움의 기록.",
         updatedAt: '2026-09-18',
       },
       {
         id: 'priv_jy_04',
-        category: '학습 로드맵',
-        title: '정보보안기사 실기 및 eWPTX 취득을 위한 24주차 심화 마일스톤',
-        badge: 'MILESTONE',
-        summary: '시스템/네트워크 보안 실습 및 실무 웹 애플리케이션 침투 테스트 실기 대비',
+        category: '접근 제어 스터디',
+        title: '알기 쉬운 네트워크 서브넷 마스크 계산과 사용자 역할(Role) 기반 권한 제어 스터디',
+        badge: 'STUDY PLAN',
+        summary:
+          '동료 교육생들과 함께 C클래스 IP 서브넷(255.255.255.0) 나누기와 관리자/일반사용자 권한 분리(RBAC) 기초 복습',
         details:
-          'Snort 룰셋 작성, Wireshark 패킷 분석 훈련, Burp Suite 플러그인 개발 및 취약점 보고서 작성 표준화 연습 계획.',
+          "'서브넷 마스크는 우리 아파트 동/호수를 나누는 것, RBAC은 사원증 등급에 따라 들어갈 수 있는 방을 제한하는 것'처럼 쉬운 비유로 개념을 다지고, 과제 속 권한 제어 코드를 함께 분석.",
         updatedAt: '2026-09-15',
       },
     ]);
@@ -140,31 +142,33 @@ class PasskeyServerDatabase {
     this.privateData.set('evaluator_test', [
       {
         id: 'priv_eval_01',
-        category: '평가위원 메모',
-        title: 'SKT ALEPH 1기 평가위원 전용 모의 보안 진단 체크리스트',
+        category: '접근 통제 메모',
+        title: '입문자 네트워크 접근 통제 확인용 모의 데이터 (평가위원 전용)',
         badge: 'EVALUATOR ONLY',
-        summary: '계정 간 데이터 격리 및 권한 우회(IDOR) 방어 상태 검증을 위한 격리 데이터셋',
+        summary:
+          '평가위원이 패스키 인증과 계정별 접근 통제(Access Control)가 올바르게 동작하는지 확인하기 위한 테스트 데이터',
         details:
-          '본 항목은 evaluator_test 계정 소유의 비공개 데이터이며, jinyeong 계정의 패스키나 토큰으로는 열람할 수 없어야 합니다.',
+          '이 문서는 evaluator_test 계정 전용 메모이며, jinyeong 계정의 접근 권한으로는 열람할 수 없어야 정상입니다 (403 Forbidden 거절 확인용).',
         updatedAt: '2026-09-20',
       },
       {
         id: 'priv_eval_02',
-        category: '모의 시나리오',
-        title: '타 계정 비공개 데이터 탈취 시도 모의 공격 시나리오',
+        category: '접근 제어 실습',
+        title: '타 계정 네트워크 자원 무단 접근(IDOR) 차단 테스트',
         badge: 'TEST SUITE',
-        summary: 'HTTP 403 Forbidden 응답 및 비인가 접근 차단 로그 검증',
+        summary: '내 권한이 아닌 다른 계정의 네트워크 저장소 URL을 직접 호출했을 때 방화벽/접근 제어가 막아주는지 확인',
         details:
-          'jinyeong 사용자의 요청 토큰으로 evaluator_test의 private-data 엔드포인트를 호출했을 때 403 에러가 반환되는지 확인.',
+          "jinyeong 학생의 로그인 토큰으로 evaluator_test의 비공개 자원을 요청하면 '접근 권한이 없습니다(HTTP 403)'로 차단되고 데이터가 안전하게 보호되어야 합니다.",
         updatedAt: '2026-09-19',
       },
       {
         id: 'priv_eval_03',
-        category: '보안 감사',
-        title: 'WebAuthn 챌린지 재사용 방지 및 세션 무효화 감사 기록',
+        category: '네트워크 보안 점검',
+        title: '1회용 인증 티켓(챌린지) 재사용 차단 및 네트워크 세션 종료 기록',
         badge: 'AUDIT MOCK',
-        summary: '재전송 공격(Replay Attack) 방어 및 로그아웃 후 세션 재사용 차단 기록',
-        details: '사용한 챌린지 1회용 소모 및 로그아웃 시 서버 측 블랙리스트 등록 검증 완료.',
+        summary: '한 번 사용한 인증 챌린지 패킷의 재전송 차단과 로그아웃 시 네트워크 세션 무효화 점검',
+        details:
+          '이미 사용된 일회용 챌린지 요청은 401로 거절되고, 로그아웃 버튼을 누르면 서버 측 세션이 즉시 폐기되는지 확인한 기록입니다.',
         updatedAt: '2026-09-18',
       },
     ]);
