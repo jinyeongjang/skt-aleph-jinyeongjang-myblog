@@ -19,6 +19,10 @@ import {
   Terminal,
   ChevronDown,
   ChevronUp,
+  Sparkles,
+  Cpu,
+  Zap,
+  X,
 } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { PasskeyClient } from '../lib/passkey/client.ts';
@@ -699,7 +703,7 @@ export const PasskeyVault: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setIsRegisterModalOpen(true)}
-                  className="flex items-center gap-1.5 rounded-lg bg-neutral-900 px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-neutral-800 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-100"
+                  className="flex cursor-pointer items-center gap-1.5 rounded-lg bg-neutral-900 px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-neutral-800 hover:underline dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-100"
                 >
                   <PlusCircle className="h-3.5 w-3.5" />
                   <span>추가 패스키 등록</span>
@@ -749,7 +753,7 @@ export const PasskeyVault: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => handleDeletePasskey(cred.id, cred.name)}
-                        className="flex items-center gap-1 rounded-lg border border-rose-200 bg-rose-50 px-2.5 py-1 text-xs font-semibold text-rose-700 transition-colors hover:bg-rose-100 dark:border-rose-900 dark:bg-rose-950/60 dark:text-rose-300 dark:hover:bg-rose-900"
+                        className="flex cursor-pointer items-center gap-1 rounded-lg border border-rose-200 bg-rose-50 px-2.5 py-1 text-xs font-semibold text-rose-700 transition-colors hover:bg-rose-100 hover:underline dark:border-rose-900 dark:bg-rose-950/60 dark:text-rose-300 dark:hover:bg-rose-900"
                         title="패스키 삭제 (T08-C44)"
                       >
                         <Trash2 className="h-3.5 w-3.5" />
@@ -956,104 +960,169 @@ export const PasskeyVault: React.FC = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={() => setIsRegisterModalOpen(false)}
-              className="fixed inset-0 bg-neutral-950/60"
+              onClick={() => {
+                setIsRegisterModalOpen(false);
+                setFeedbackMessage({
+                  type: 'info',
+                  text: '사용자가 패스키 등록을 취소했습니다. 서버에 아무것도 저장되지 않았습니다. (T08-C25)',
+                });
+              }}
+              className="fixed inset-0 bg-neutral-950/70"
             />
 
             <motion.div
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.95, opacity: 0 }}
-              className="relative w-full max-w-md rounded-2xl border border-neutral-200 bg-white p-6 shadow-2xl dark:border-neutral-800 dark:bg-neutral-900"
+              initial={{ scale: 0.95, opacity: 0, y: 10 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 10 }}
+              transition={{ duration: 0.2, ease: 'easeOut' }}
+              className="relative w-full max-w-lg overflow-hidden rounded-3xl border border-neutral-200/90 bg-white/95 p-6 shadow-2xl backdrop-blur-xl sm:p-7 dark:border-neutral-700/80 dark:bg-neutral-900/95 dark:shadow-[0_0_50px_rgba(0,0,0,0.8)]"
             >
-              <div className="flex items-center justify-between border-b border-neutral-100 pb-3 dark:border-neutral-800">
-                <div className="flex items-center gap-2">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-neutral-900 text-white dark:bg-white dark:text-neutral-900">
-                    <KeyRound className="h-4 w-4" />
+              {/* Top ambient glow */}
+              <div className="pointer-events-none absolute -top-20 left-1/2 h-32 w-64 -translate-x-1/2 rounded-full bg-neutral-900/10 blur-2xl dark:bg-white/10" />
+
+              {/* Modal Header */}
+              <div className="relative flex items-start justify-between border-b border-neutral-100 pb-4 dark:border-neutral-800">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-neutral-900 text-white shadow-md ring-4 ring-neutral-100 dark:bg-white dark:text-neutral-900 dark:ring-neutral-800">
+                    <KeyRound className="h-5 w-5" />
                   </div>
-                  <h3 className="text-base font-bold text-neutral-900 dark:text-white">
-                    새 패스키 등록 ({selectedUser})
-                  </h3>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h3 className="text-base font-bold text-neutral-900 sm:text-lg dark:text-white">
+                        새 패스키 기기 등록
+                      </h3>
+                      <span className="rounded-full bg-neutral-100 px-2 py-0.5 text-[11px] font-semibold text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300">
+                        {selectedUser === 'jinyeong' ? '장진영' : '평가위원'}
+                      </span>
+                    </div>
+                    <p className="mt-0.5 text-xs text-neutral-500 dark:text-neutral-400">
+                      FIDO2 / Web Crypto 비대칭 암호키 쌍(P-256) 발급 · 무비밀번호
+                    </p>
+                  </div>
                 </div>
+
                 <button
                   type="button"
-                  onClick={() => setIsRegisterModalOpen(false)}
-                  className="rounded-lg p-1 text-neutral-400 hover:bg-neutral-100 hover:text-neutral-700 dark:hover:bg-neutral-800"
+                  onClick={() => {
+                    setIsRegisterModalOpen(false);
+                    setFeedbackMessage({
+                      type: 'info',
+                      text: '사용자가 패스키 등록을 취소했습니다. 서버에 아무것도 저장되지 않았습니다. (T08-C25)',
+                    });
+                  }}
+                  className="cursor-pointer rounded-xl p-1.5 text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-neutral-700 dark:hover:bg-neutral-800 dark:hover:text-neutral-200"
+                  aria-label="모달 닫기"
                 >
-                  ✕
+                  <X className="h-4 w-4" />
                 </button>
               </div>
 
-              <form onSubmit={handleRegister} className="mt-4 space-y-4">
+              {/* Modal Form */}
+              <form onSubmit={handleRegister} className="relative mt-4 space-y-4">
                 <div>
-                  <label
-                    htmlFor="passkey-name-input"
-                    className="block text-xs font-semibold text-neutral-700 dark:text-neutral-300"
-                  >
-                    패스키 기기 이름 (사람이 알아볼 수 있는 이름 · T08-C24)
-                  </label>
-                  <input
-                    id="passkey-name-input"
-                    type="text"
-                    required
-                    placeholder="예: MacBook Touch ID, Windows Hello, Pixel 8"
-                    value={newPasskeyName}
-                    onChange={(e) => setNewPasskeyName(e.target.value)}
-                    className="mt-1.5 w-full rounded-xl border border-neutral-300 bg-neutral-50 px-3.5 py-2 text-sm text-neutral-900 focus:border-neutral-900 focus:bg-white focus:ring-2 focus:ring-neutral-900 focus:outline-none dark:border-neutral-700 dark:bg-neutral-800 dark:text-white dark:focus:border-white dark:focus:ring-white"
-                  />
+                  <div className="flex items-center justify-between">
+                    <label
+                      htmlFor="passkey-name-input"
+                      className="block text-xs font-bold text-neutral-800 dark:text-neutral-200"
+                    >
+                      기기 식별 이름 (Friendly Name · T08-C24)
+                    </label>
+                    <span className="text-[11px] text-neutral-400">사람이 알아볼 수 있는 이름</span>
+                  </div>
+
+                  <div className="relative mt-1.5">
+                    <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-neutral-400">
+                      <Laptop className="h-4 w-4" />
+                    </div>
+                    <input
+                      id="passkey-name-input"
+                      type="text"
+                      required
+                      placeholder="예: MacBook Pro, MacBook Air, Samsung, LG"
+                      value={newPasskeyName}
+                      onChange={(e) => setNewPasskeyName(e.target.value)}
+                      className="w-full rounded-xl border border-neutral-300 bg-neutral-50/80 py-2.5 pr-4 pl-10 text-xs font-medium text-neutral-900 transition-all placeholder:text-neutral-400 focus:border-neutral-900 focus:bg-white focus:ring-2 focus:ring-neutral-900 focus:outline-none dark:border-neutral-700 dark:bg-neutral-800/80 dark:text-white dark:placeholder:text-neutral-500 dark:focus:border-white dark:focus:ring-white"
+                    />
+                  </div>
                 </div>
 
-                <div className="rounded-xl border border-neutral-200 bg-neutral-50/70 p-3 text-[11px] text-neutral-600 dark:border-neutral-800 dark:bg-neutral-800/40 dark:text-neutral-400">
-                  <strong className="text-neutral-900 dark:text-white">🔐 패스키 작동 원리 (T08-C22, T08-C23):</strong>
-                  <ul className="mt-1 list-disc space-y-0.5 pl-4">
-                    <li>기기(TPM/Secure Enclave)에서 암호학적 비대칭 키 쌍(ECDSA P-256)을 생성합니다.</li>
-                    <li>
-                      서버로는 <strong>공개키(Public Key)</strong>만 전송되어 안전하게 보관됩니다.
-                    </li>
-                    <li>
-                      <strong>개인키(Private Key)는 절대 기기 밖으로 나가지 않습니다.</strong>
-                    </li>
-                  </ul>
+                {/* Cryptographic Architecture Card */}
+                <div className="rounded-2xl border border-neutral-200/90 bg-neutral-50/80 p-3.5 dark:border-neutral-800 dark:bg-neutral-950/60">
+                  <div className="flex items-center gap-1.5 text-xs font-bold text-neutral-900 dark:text-white">
+                    <ShieldCheck className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+                    <span>비대칭 암호학 안전성 보장 (T08-C22, T08-C23)</span>
+                  </div>
+
+                  <div className="mt-2.5 grid grid-cols-3 gap-2 text-center text-[10px]">
+                    <div className="rounded-xl border border-neutral-200 bg-white p-2 dark:border-neutral-800 dark:bg-neutral-900">
+                      <div className="mx-auto flex h-6 w-6 items-center justify-center rounded-lg bg-neutral-100 text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300">
+                        <Lock className="h-3 w-3" />
+                      </div>
+                      <span className="mt-1 block font-bold text-neutral-900 dark:text-white">개인키 (기기)</span>
+                      <p className="mt-0.5 text-[9px] text-neutral-500">기기 외부 유출 절대 불가 (격리)</p>
+                    </div>
+
+                    <div className="rounded-xl border border-neutral-200 bg-white p-2 dark:border-neutral-800 dark:bg-neutral-900">
+                      <div className="mx-auto flex h-6 w-6 items-center justify-center rounded-lg bg-neutral-100 text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300">
+                        <Zap className="h-3 w-3 text-amber-500" />
+                      </div>
+                      <span className="mt-1 block font-bold text-neutral-900 dark:text-white">1회용 서명</span>
+                      <p className="mt-0.5 text-[9px] text-neutral-500">도청/재전송 공격 원천 차단</p>
+                    </div>
+
+                    <div className="rounded-xl border border-neutral-200 bg-white p-2 dark:border-neutral-800 dark:bg-neutral-900">
+                      <div className="mx-auto flex h-6 w-6 items-center justify-center rounded-lg bg-neutral-100 text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300">
+                        <Cpu className="h-3 w-3 text-neutral-700 dark:text-neutral-300" />
+                      </div>
+                      <span className="mt-1 block font-bold text-neutral-900 dark:text-white">공개키 (서버)</span>
+                      <p className="mt-0.5 text-[9px] text-neutral-500">ES256 공개키만 서버에 저장</p>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="flex flex-col gap-2 pt-2 sm:flex-row sm:items-center sm:justify-end">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setIsRegisterModalOpen(false);
-                      setFeedbackMessage({
-                        type: 'info',
-                        text: '사용자가 패스키 등록을 취소했습니다. 서버에 아무것도 저장되지 않았습니다. (T08-C25)',
-                      });
-                    }}
-                    className="cursor-pointer rounded-xl border border-neutral-200 px-3.5 py-2 text-xs font-semibold text-neutral-700 hover:bg-neutral-100 hover:underline dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800"
-                  >
-                    취소 (Cancel)
-                  </button>
-
+                {/* Action Buttons */}
+                <div className="space-y-2 pt-1">
+                  {/* Option 1: One-Click Instant Generation (Primary) */}
                   <button
                     type="button"
                     disabled={isLoading}
                     onClick={(e) => handleRegister(e, true)}
-                    className="flex cursor-pointer items-center justify-center gap-1.5 rounded-xl bg-neutral-900 px-4 py-2 text-xs font-bold text-white shadow-md hover:bg-neutral-800 hover:underline disabled:opacity-50 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-100"
+                    className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-neutral-900 py-2.5 text-xs font-bold text-white shadow-md transition-all hover:bg-neutral-800 hover:underline hover:shadow-lg disabled:opacity-50 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-100"
                   >
                     {isLoading ? (
-                      <RefreshCw className="h-3.5 w-3.5 animate-spin" />
+                      <RefreshCw className="h-4 w-4 animate-spin" />
                     ) : (
-                      <Fingerprint className="h-3.5 w-3.5" />
+                      <Sparkles className="h-4 w-4 text-amber-300 dark:text-amber-500" />
                     )}
-                    <span>즉시 패스키 생성 & 등록 (USB 불필요)</span>
+                    <span>원클릭 즉시 생성 및 등록 (추천 · USB 불필요)</span>
                   </button>
 
-                  <button
-                    type="button"
-                    disabled={isLoading}
-                    onClick={(e) => handleRegister(e, false)}
-                    className="flex cursor-pointer items-center justify-center gap-1.5 rounded-xl border border-neutral-300 bg-white px-3.5 py-2 text-xs font-semibold text-neutral-800 hover:bg-neutral-50 hover:underline disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700"
-                  >
-                    <KeyRound className="h-3.5 w-3.5 text-neutral-600 dark:text-neutral-400" />
-                    <span>Windows Hello / USB 키 스캔</span>
-                  </button>
+                  {/* Option 2: Windows Hello / Hardware Scan (Secondary) */}
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      disabled={isLoading}
+                      onClick={(e) => handleRegister(e, false)}
+                      className="flex flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-xl border border-neutral-300 bg-neutral-50/80 py-2 text-xs font-semibold text-neutral-700 transition-colors hover:bg-neutral-100 hover:underline disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-800/80 dark:text-neutral-300 dark:hover:bg-neutral-700"
+                    >
+                      <Fingerprint className="h-3.5 w-3.5 text-neutral-600 dark:text-neutral-400" />
+                      <span>Windows Hello / 하드웨어 스캔</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsRegisterModalOpen(false);
+                        setFeedbackMessage({
+                          type: 'info',
+                          text: '사용자가 패스키 등록을 취소했습니다. 서버에 아무것도 저장되지 않았습니다. (T08-C25)',
+                        });
+                      }}
+                      className="cursor-pointer rounded-xl border border-neutral-200 px-3.5 py-2 text-xs font-semibold text-neutral-600 transition-colors hover:bg-neutral-100 dark:border-neutral-700 dark:text-neutral-400 dark:hover:bg-neutral-800"
+                    >
+                      취소
+                    </button>
+                  </div>
                 </div>
               </form>
             </motion.div>
