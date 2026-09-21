@@ -54,7 +54,8 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     if (pathname.endsWith('/register-challenge') && req.method === 'POST') {
       const body = await parseJsonBody(req);
       const username = (body.username as string) || 'jinyeong';
-      const result = passkeyServer.createRegisterChallenge(username);
+      const rpId = (body.rpId as string) || (req.headers.host ? req.headers.host.split(':')[0] : 'localhost');
+      const result = passkeyServer.createRegisterChallenge(username, rpId);
       return sendJsonResponse(res, result.statusCode, result);
     }
 

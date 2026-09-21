@@ -405,7 +405,7 @@ export const PasskeyVault: React.FC = () => {
             <button
               type="button"
               onClick={() => setFeedbackMessage(null)}
-              className="text-xs font-semibold opacity-60 hover:opacity-100"
+              className="cursor-pointer text-xs font-semibold opacity-60 hover:underline hover:opacity-100"
             >
               닫기
             </button>
@@ -424,7 +424,7 @@ export const PasskeyVault: React.FC = () => {
               aria-selected={activeTab === 'vault'}
               onClick={() => setActiveTab('vault')}
               className={cn(
-                'rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:outline-none dark:focus-visible:ring-white',
+                'cursor-pointer rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors hover:underline focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:outline-none dark:focus-visible:ring-white',
                 activeTab === 'vault'
                   ? 'bg-neutral-900 text-white shadow-xs dark:bg-white dark:text-neutral-900'
                   : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-white',
@@ -438,7 +438,7 @@ export const PasskeyVault: React.FC = () => {
               aria-selected={activeTab === 'keys'}
               onClick={() => setActiveTab('keys')}
               className={cn(
-                'rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:outline-none dark:focus-visible:ring-white',
+                'cursor-pointer rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors hover:underline focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:outline-none dark:focus-visible:ring-white',
                 activeTab === 'keys'
                   ? 'bg-neutral-900 text-white shadow-xs dark:bg-white dark:text-neutral-900'
                   : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-white',
@@ -452,7 +452,7 @@ export const PasskeyVault: React.FC = () => {
               aria-selected={activeTab === 'tests'}
               onClick={() => setActiveTab('tests')}
               className={cn(
-                'rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:outline-none dark:focus-visible:ring-white',
+                'cursor-pointer rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors hover:underline focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:outline-none dark:focus-visible:ring-white',
                 activeTab === 'tests'
                   ? 'bg-neutral-900 text-white shadow-xs dark:bg-white dark:text-neutral-900'
                   : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-white',
@@ -469,7 +469,7 @@ export const PasskeyVault: React.FC = () => {
                 refreshAuditLogs();
               }}
               className={cn(
-                'rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:outline-none dark:focus-visible:ring-white',
+                'cursor-pointer rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors hover:underline focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:outline-none dark:focus-visible:ring-white',
                 activeTab === 'audit'
                   ? 'bg-neutral-900 text-white shadow-xs dark:bg-white dark:text-neutral-900'
                   : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-white',
@@ -488,7 +488,7 @@ export const PasskeyVault: React.FC = () => {
               <button
                 type="button"
                 onClick={handleLogout}
-                className="flex items-center gap-1 rounded-lg border border-neutral-200 bg-white px-2.5 py-1 text-xs font-semibold text-neutral-700 transition-colors hover:bg-neutral-100 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700"
+                className="flex cursor-pointer items-center gap-1 rounded-lg border border-neutral-200 bg-white px-2.5 py-1 text-xs font-semibold text-neutral-700 transition-colors hover:bg-neutral-100 hover:underline dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700"
               >
                 <LogOut className="h-3.5 w-3.5" />
                 <span>로그아웃</span>
@@ -503,7 +503,7 @@ export const PasskeyVault: React.FC = () => {
             {!authToken ? (
               /* Unauthenticated State: Portal Login / Register (T08-C15: No private data visible) */
               <div className="rounded-xl border border-neutral-200/80 bg-neutral-50/70 p-6 text-center sm:p-8 dark:border-neutral-800/80 dark:bg-neutral-950/50">
-                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-neutral-900 text-white shadow-md dark:bg-white dark:text-neutral-900">
+                <div className="text-shadow-slate-00 mx-auto flex h-14 w-14 items-center justify-center rounded-2xl shadow-md dark:bg-white dark:text-neutral-900">
                   <Fingerprint className="h-7 w-7" />
                 </div>
                 <h3 className="mt-4 text-lg font-bold text-neutral-900 dark:text-white">패스키로 잠긴 비공개 자료실</h3>
@@ -520,7 +520,7 @@ export const PasskeyVault: React.FC = () => {
                       type="button"
                       onClick={() => setSelectedUser('jinyeong')}
                       className={cn(
-                        'rounded-md px-2.5 py-1 transition-all',
+                        'cursor-pointer rounded-md px-2.5 py-1 transition-all hover:underline',
                         selectedUser === 'jinyeong'
                           ? 'bg-neutral-900 font-bold text-white dark:bg-white dark:text-neutral-900'
                           : 'bg-neutral-200 text-neutral-700 dark:bg-neutral-800 dark:text-neutral-400',
@@ -532,7 +532,7 @@ export const PasskeyVault: React.FC = () => {
                       type="button"
                       onClick={() => setSelectedUser('evaluator_test')}
                       className={cn(
-                        'rounded-md px-2.5 py-1 transition-all',
+                        'cursor-pointer rounded-md px-2.5 py-1 transition-all hover:underline',
                         selectedUser === 'evaluator_test'
                           ? 'bg-neutral-900 font-bold text-white dark:bg-white dark:text-neutral-900'
                           : 'bg-neutral-200 text-neutral-700 dark:bg-neutral-800 dark:text-neutral-400',
@@ -547,19 +547,17 @@ export const PasskeyVault: React.FC = () => {
                     type="button"
                     disabled={isLoading}
                     onClick={() => handleLogin(selectedUser)}
-                    className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-neutral-900 py-3 text-sm font-bold text-white shadow-md transition-all hover:bg-neutral-800 hover:shadow-lg focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:outline-none disabled:opacity-60 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-100"
+                    className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-indigo-600 py-3 text-sm font-bold text-white shadow-md transition-all hover:bg-indigo-700 hover:underline hover:shadow-lg focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:outline-none disabled:opacity-60 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-100"
                   >
                     {isLoading ? <RefreshCw className="h-4 w-4 animate-spin" /> : <Fingerprint className="h-4 w-4" />}
-                    <span>
-                      {selectedUser === 'jinyeong' ? '장진영 계정 패스키로 열기' : '평가위원 계정 패스키로 열기'}
-                    </span>
+                    <span>{selectedUser === 'jinyeong' ? '패스키로 열기' : '평가위원 계정 패스키로 열기'}</span>
                   </button>
 
                   <div className="flex items-center justify-between pt-2">
                     <button
                       type="button"
                       onClick={() => setIsRegisterModalOpen(true)}
-                      className="inline-flex items-center gap-1 text-xs font-semibold text-neutral-600 underline-offset-4 hover:text-neutral-900 hover:underline dark:text-neutral-400 dark:hover:text-white"
+                      className="inline-flex cursor-pointer items-center gap-1 text-xs font-semibold text-neutral-600 underline-offset-4 hover:text-neutral-900 hover:underline dark:text-neutral-400 dark:hover:text-white"
                     >
                       <PlusCircle className="h-3.5 w-3.5" />
                       <span>새 패스키 등록하기</span>
@@ -568,7 +566,7 @@ export const PasskeyVault: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => setActiveTab('tests')}
-                      className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-600 underline-offset-4 hover:underline dark:text-emerald-400"
+                      className="inline-flex cursor-pointer items-center gap-1 text-xs font-semibold text-emerald-600 underline-offset-4 hover:underline dark:text-emerald-400"
                     >
                       <ShieldCheck className="h-3.5 w-3.5" />
                       <span>보안 거절 검증 랩</span>
@@ -898,7 +896,7 @@ export const PasskeyVault: React.FC = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsRegisterModalOpen(false)}
-              className="fixed inset-0 bg-neutral-950/60 backdrop-blur-xs"
+              className="fixed inset-0 bg-neutral-950/60"
             />
 
             <motion.div
@@ -967,14 +965,14 @@ export const PasskeyVault: React.FC = () => {
                         text: '사용자가 패스키 등록을 취소했습니다. 서버에 아무것도 저장되지 않았습니다. (T08-C25)',
                       });
                     }}
-                    className="rounded-xl border border-neutral-200 px-4 py-2 text-xs font-semibold text-neutral-700 hover:bg-neutral-100 dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800"
+                    className="cursor-pointer rounded-xl border border-neutral-200 px-4 py-2 text-xs font-semibold text-neutral-700 hover:bg-neutral-100 hover:underline dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800"
                   >
                     취소 (Cancel)
                   </button>
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="flex items-center gap-1.5 rounded-xl bg-neutral-900 px-4 py-2 text-xs font-bold text-white shadow-md hover:bg-neutral-800 disabled:opacity-50 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-100"
+                    className="flex cursor-pointer items-center gap-1.5 rounded-xl bg-neutral-900 px-4 py-2 text-xs font-bold text-white shadow-md hover:bg-neutral-800 hover:underline disabled:opacity-50 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-100"
                   >
                     {isLoading ? (
                       <RefreshCw className="h-3.5 w-3.5 animate-spin" />

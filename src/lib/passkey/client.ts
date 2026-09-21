@@ -58,8 +58,10 @@ export class PasskeyClient {
     forceSoftwareMode = false,
   ): Promise<PasskeyAuthResult> {
     try {
+      const currentHost = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
+
       // 1. Request unique challenge from server (T08-C19, T08-C20)
-      const challengeRes = passkeyServer.createRegisterChallenge(username);
+      const challengeRes = passkeyServer.createRegisterChallenge(username, currentHost);
       if (!challengeRes.success || !challengeRes.data) {
         return { success: false, error: challengeRes.error || '챌린지 생성 실패' };
       }
@@ -67,7 +69,13 @@ export class PasskeyClient {
       const { challenge, rp, user } = challengeRes.data;
 
       // 2. Browser Native WebAuthn Registration (if supported and not forced to software test)
-      if (this.isSupported() && !forceSoftwareMode && window.location.protocol === 'https:') {
+      const isHttpsOrLocalhost =
+        typeof window !== 'undefined' &&
+        (window.location.protocol === 'https:' ||
+          window.location.hostname === 'localhost' ||
+          window.location.hostname === '127.0.0.1');
+
+      if (this.isSupported() && !forceSoftwareMode && isHttpsOrLocalhost) {
         try {
           const publicKeyCredentialCreationOptions: PublicKeyCredentialCreationOptions = {
             challenge: base64UrlToUint8Array(challenge) as unknown as BufferSource,

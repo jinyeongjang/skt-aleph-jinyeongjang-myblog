@@ -223,7 +223,10 @@ class PasskeyServerDatabase {
   }
 
   // --- Registration Flow (T08-C19 ~ T08-C26) ---
-  public createRegisterChallenge(username: string): ApiResponse<{
+  public createRegisterChallenge(
+    username: string,
+    rpId?: string,
+  ): ApiResponse<{
     challenge: string;
     rp: { name: string; id: string };
     user: { id: string; name: string; displayName: string };
@@ -239,14 +242,20 @@ class PasskeyServerDatabase {
       used: false,
     });
 
+    const effectiveRpId =
+      rpId ||
+      (typeof globalThis !== 'undefined' && 'location' in globalThis
+        ? (globalThis as unknown as { location: { hostname: string } }).location.hostname
+        : 'localhost');
+
     const audit = this.logAudit({
       action: 'REGISTER_CHALLENGE',
       status: 'SUCCESS',
       statusCode: 200,
       username,
       details: `등록용 1회용 챌린지 생성 완료 (Unique Challenge: ${challenge.substring(0, 12)}...)`,
-      requestPayload: JSON.stringify({ username }),
-      responsePayload: JSON.stringify({ challenge, rpId: 'localhost' }),
+      requestPayload: JSON.stringify({ username, rpId: effectiveRpId }),
+      responsePayload: JSON.stringify({ challenge, rpId: effectiveRpId }),
     });
 
     return {
@@ -258,7 +267,7 @@ class PasskeyServerDatabase {
         challenge,
         rp: {
           name: 'SKT ALEPH Portfolio Passkey Vault',
-          id: 'localhost',
+          id: effectiveRpId,
         },
         user: {
           id: user.id,
