@@ -42,7 +42,10 @@
   - 비밀번호 입력칸 **0개** (T08-C35) — 순수 FIDO2 / WebAuthn 비대칭 암호학 기반 인증
   - 서버에는 오직 **공개키(ECDSA P-256)** 만 저장되며, 개인키는 기기(TPM/Secure Enclave/Google Password Manager)를 절대 떠나지 않음 (T08-C21, T08-C23)
   - 32바이트 암호학적 1회용 챌린지 생성 및 즉시 소모로 재전송 공격(Replay Attack) 방어 (T08-C19, T08-C27, T08-C31)
-  - 다중 패스키 등록(주 기기 + 백업 키), 삭제 후 로그인, 계정 간 데이터 격리(IDOR 차단 HTTP 403) 및 4대 실시간 보안 검증 랩 탑재
+  - **원클릭 즉시 생성 및 하드웨어 스캔 듀얼 지원**: 생체 인증기 미지원 기기에서도 Web Crypto API 기반 즉시 키 쌍을 발급받아 테스트 가능하며, Windows Hello 및 YubiKey 하드웨어 보안키 직접 스캔도 완벽 지원
+  - **패스키 기기 관리 & 삭제 복원력 (T08-C42 ~ T08-C46)**: 비로그인 상태에서도 계정 스위처(`장진영` ↔ `평가위원`)로 등록된 패스키 목록을 즉시 조회하고, 특정 키 삭제 후 잔여 키 로그인 및 모든 키 삭제 시 로그인 잠김 복원력 보장
+  - **글래스모피즘 모달 & 빠른 프리셋 칩 (T08-C24)**: `MacBook Touch ID`, `Windows Hello`, `YubiKey 5`, `iPhone Face ID`, `Google 비밀번호 관리자` 등 5대 프리셋 원클릭 입력 및 3단 비대칭 암호학 시각화
+  - 다중 계정 데이터 격리(IDOR 차단 HTTP 403) 및 4대 실시간 보안 검증 랩 탑재
 - **STAR 기반 4대 핵심 강점 (T01-C06 ~ T01-C09)**: 현장 실무 경험을 바탕으로 **상황(Situation) · 행동(Action) · 결과(Result) · 공개 근거(Evidence)** 4단계 모델을 적용하여 객관적으로 입증
 - **2년 10개월 실무 경력 및 5대 탭 분류 이력서**: (주)블루커뮤니케이션 매니저 실무, (주)케이티씨에스 IT 전문 강사, 컴퓨터공학 학사(3.97/4.5), 국가공인 자격 및 수상 이력
 - **웹 접근성 & 모션 제어 (WCAG AA · T01-C13 ~ T01-C22)**:
@@ -152,8 +155,8 @@ npm run build
 
 1. **① 어디로 가나요**: 브라우저 새 시크릿 창을 열고 [https://skt-aleph-jinyeongjang-myblog.vercel.app](https://skt-aleph-jinyeongjang-myblog.vercel.app)에 접속하여 `#vault` (비공개 구역) 섹션으로 이동합니다.
 2. **② 세 단계 안에 무엇을 하나요**:
-   - 1단계: 계정 선택에서 `[장진영 (jinyeong)]`을 선택하고 `[장진영 패스키 스캔 & 금고 열기]` 버튼을 클릭합니다.
-   - 2단계: 인증 완료 후 열린 비공개 자료실(4건의 기획/회고 문서)과 `[02 // 패스키 관리]` 탭(2개의 등록된 패스키)을 확인합니다.
+   - 1단계: 계정 선택에서 `[장진영 (jinyeong)]`을 선택하고 `[장진영 패스키 스캔 & 금고 열기]` 또는 `[추가 패스키 등록]` 버튼을 클릭합니다.
+   - 2단계: 인증 완료 후 열린 비공개 자료실(4건의 기획/회고 문서)과 `[02 // 패스키 기기 관리]` 탭(등록된 패스키 목록 조회/삭제/추가)을 확인합니다.
    - 3단계: `[03 // 보안 검증 랩]` 탭으로 이동하여 `[2. 타 계정 비공개 자료 무단 조회(IDOR)]` 버튼을 클릭합니다.
 3. **③ 무엇이 보이면 통과인가요**: 패스키 서명 검증 성공 배너와 함께 비공개 문서 4건이 즉시 렌더링되고, 보안 검증 랩에서 HTTP 403 Forbidden 응답 및 데이터 건수 무결성(시도 전후 동일)이 터미널에 표시되면 통과입니다.
 4. **④ 안 될 때는 무엇이 보이나요**: 비밀번호 입력창이 나타나거나, 인증 없이도 비공개 데이터가 화면/소스코드에 노출되거나, 타 계정 데이터 요청 시 403이 아닌 200으로 비인가 열람되는 현상이 발생합니다.
@@ -163,7 +166,7 @@ npm run build
 ### 3. AI와 나의 판단 3줄 (T08-C53)
 
 1. **① AI에게 맡긴 일**: W3C WebAuthn 레벨 3 표준 스펙 분석, SubtleCrypto ECDSA P-256 서명 검증 시 DER과 IEEE P1363(R||S 64바이트) 포맷 변환 보정 로직 작성, 실시간 보안 검증 랩 터미널 UI 스타일링.
-2. **② 내가 직접 판단한 일**: 외부 서드파티 인증 서비스(Auth0, Firebase 등)에 종속되지 않고 자체 Web Crypto API 기반의 경량화된 FIDO2 엔진을 구축하기로 결정, 4대 거절 시나리오(인증 없음 401, IDOR 403, 챌린지 재사용 401, 삭제키 401) 설계 및 다중 계정(`jinyeong`, `evaluator_test`) 격리 구조 수립, 비공개 구역 데이터의 교육용 모의 데이터(Mock Data) 정책 확정.
+2. **② 내가 직접 판단한 일**: 외부 서드파티 인증 서비스(Auth0, Firebase 등)에 종속되지 않고 자체 Web Crypto API 기반의 경량화된 FIDO2 엔진을 구축하기로 결정, 플랫폼 인증기 미지원 기기 대응을 위한 원클릭 즉시 생성/하드웨어 스캔 듀얼 등록 체계 수립, 4대 거절 시나리오(인증 없음 401, IDOR 403, 챌린지 재사용 401, 삭제키 401) 설계 및 다중 계정(`jinyeong`, `evaluator_test`) 격리 구조 수립, 비공개 구역 데이터의 교육용 모의 데이터(Mock Data) 정책 확정.
 3. **③ AI 제안을 따르지 않은 일**: AI가 초기에 제안했던 복잡한 대형 외부 라이브러리(`@simplewebauthn`) 번들 임포트는 Vite 빌드 용량을 1MB 이상 급증시키고 번들링 오버헤드를 유발하여 채택하지 않고, 순수 Web Crypto API 기반의 제로 디펜던시(Zero Dependency) 인라인 암호 엔진으로 대체하여 번들 크기를 최적화했습니다.
 
 ---
@@ -188,19 +191,23 @@ npm run build
 #### ③ 어디를 어떻게 고쳤나 (T08-C49)
 
 1. **등록 흐름 (Registration)**:
-   - 클라이언트: [`src/lib/passkey/client.ts`](src/lib/passkey/client.ts) `PasskeyClient.register()`
+   - 클라이언트: [`src/lib/passkey/client.ts`](src/lib/passkey/client.ts) `PasskeyClient.register()` (원클릭 Web Crypto 및 플랫폼 스캔 분리)
    - 서버 챌린지 생성: [`src/lib/passkey/server.ts`](src/lib/passkey/server.ts) `PasskeyServerDatabase.createRegisterChallenge()`
    - 서버 공개키 검증 및 저장: [`src/lib/passkey/server.ts`](src/lib/passkey/server.ts) `PasskeyServerDatabase.verifyRegister()`
-   - UI 모달: [`src/components/PasskeyVault.tsx`](src/components/PasskeyVault.tsx) `handleRegister()`
+   - UI 모달: [`src/components/PasskeyVault.tsx`](src/components/PasskeyVault.tsx) `handleRegister()` (프리셋 칩 및 암호학 시각화)
 2. **로그인 흐름 (Authentication)**:
    - 클라이언트 서명: [`src/lib/passkey/client.ts`](src/lib/passkey/client.ts) `PasskeyClient.login()`
    - 서버 1회용 챌린지 발급: [`src/lib/passkey/server.ts`](src/lib/passkey/server.ts) `PasskeyServerDatabase.createLoginChallenge()`
    - 서명 검증 및 세션 토큰 발급: [`src/lib/passkey/server.ts`](src/lib/passkey/server.ts) `PasskeyServerDatabase.verifyLogin()`
    - 암호학적 검증 엔진: [`src/lib/passkey/crypto.ts`](src/lib/passkey/crypto.ts) `verifyEs256Signature()`
-3. **로그아웃 흐름 (Logout)**:
+3. **패스키 기기 관리 및 삭제 흐름 (Passkey Management & Revocation · T08-C42 ~ T08-C46)**:
+   - 패스키 목록 조회: [`src/lib/passkey/server.ts`](src/lib/passkey/server.ts) `listPasskeys()` (토큰 및 비로그인 계정 동시 지원)
+   - 패스키 삭제: [`src/lib/passkey/server.ts`](src/lib/passkey/server.ts) `deletePasskey()` (키 삭제 후 잔여 키 정상 로그인 및 0개 잔여 시 로그인 잠김 보장)
+   - API 라우터 매핑: [`api/passkey.ts`](api/passkey.ts) `/api/passkey/list-keys`, `/api/passkey/delete-key`
+4. **로그아웃 흐름 (Logout)**:
    - 토큰 무효화 및 블랙리스트 등록: [`src/lib/passkey/server.ts`](src/lib/passkey/server.ts) `PasskeyServerDatabase.logout()`
    - 클라이언트 세션 정리: [`src/components/PasskeyVault.tsx`](src/components/PasskeyVault.tsx) `handleLogout()`
-4. **비공개 자료 조회 흐름 (Data Access & Authorization)**:
+5. **비공개 자료 조회 흐름 (Data Access & Authorization)**:
    - 토큰 검증 및 IDOR 인가 차단: [`src/lib/passkey/server.ts`](src/lib/passkey/server.ts) `PasskeyServerDatabase.getPrivateData()`
    - API 라우터 매핑: [`api/passkey.ts`](api/passkey.ts) `GET /api/passkey/private-data`
 
@@ -266,7 +273,7 @@ npm run build
 
 ### 4. 실제 결함 3개 수정 기록 (T01-C17)
 
-1. **결함 1 (더미 링크)**: 전: `https://example.com` ➔ 후: `https://skt-aleph-jinyeongblog.vercel.app` (T01-C13 준수)
+1. **결함 1 (더미 링크)**: 전: `https://example.com` ➔ 후: `https://skt-aleph-jinyeongjang-myblog.vercel.app` (T01-C13 준수)
 2. **결함 2 (연락처 및 개인정보 보호)**: 전: 개인 연락처 노출 우려 또는 더미 이메일 ➔ 후: GitHub 공식 noreply 이메일(`jinyeongjang@users.noreply.github.com`) 및 클립보드 복사 (T01-C05, T01-C23 준수)
 3. **결함 3 (웹 접근성 명암비 미달)**: 전: `text-neutral-400`(2.8:1) ➔ 후: `text-neutral-500`(4.6:1) 및 `text-neutral-600`(7.0:1) 이상 교체 (T01-C16 준수)
 
