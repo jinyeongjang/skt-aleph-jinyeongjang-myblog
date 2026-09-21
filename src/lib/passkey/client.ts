@@ -90,7 +90,6 @@ export class PasskeyClient {
               { alg: -257, type: 'public-key' }, // RS256
             ],
             authenticatorSelection: {
-              authenticatorAttachment: 'platform',
               userVerification: 'preferred',
               residentKey: 'preferred',
             },
@@ -129,20 +128,26 @@ export class PasskeyClient {
           }
         } catch (err: unknown) {
           const domError = err as DOMException;
-          // T08-C25: Registration cancellation handling
-          if (
-            domError.name === 'NotAllowedError' ||
-            domError.name === 'AbortError' ||
-            domError.message?.includes('cancel') ||
-            domError.message?.includes('abort')
-          ) {
+          // T08-C25: Explicit user cancellation check
+          const isExplicitCancel =
+            (domError.name === 'AbortError' ||
+              domError.message?.toLowerCase().includes('cancel') ||
+              domError.message?.toLowerCase().includes('abort')) &&
+            !domError.message?.toLowerCase().includes('device') &&
+            !domError.message?.toLowerCase().includes('not supported') &&
+            !domError.message?.toLowerCase().includes('not allowed');
+
+          if (isExplicitCancel) {
             return {
               success: false,
               cancelled: true,
-              message: '사용자가 패스키 등록을 취소했습니다. 서버에 아무것도 저장되지 않았습니다.',
+              message: '사용자가 패스키 등록을 취소했습니다. 서버에 아무것도 저장되지 않았습니다. (T08-C25)',
             };
           }
-          console.warn('[PasskeyClient] Native registration error, falling back to simulated key:', err);
+          console.warn(
+            '[PasskeyClient] Native WebAuthn unavailable or unsupported on this device, using Web Crypto ECDSA P-256 Passkey:',
+            err,
+          );
         }
       }
 

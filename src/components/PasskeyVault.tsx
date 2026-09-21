@@ -119,8 +119,8 @@ export const PasskeyVault: React.FC = () => {
   };
 
   // Handle Passkey Registration (T08-C19 ~ T08-C26)
-  const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleRegister = async (e?: React.FormEvent, forceSoftware = false) => {
+    if (e) e.preventDefault();
     if (!newPasskeyName.trim()) {
       setFeedbackMessage({ type: 'error', text: '패스키 기기 이름을 입력해 주세요.' });
       return;
@@ -129,7 +129,7 @@ export const PasskeyVault: React.FC = () => {
     setIsLoading(true);
     setFeedbackMessage(null);
     try {
-      const res = await PasskeyClient.register(selectedUser, newPasskeyName.trim());
+      const res = await PasskeyClient.register(selectedUser, newPasskeyName.trim(), forceSoftware);
       if (res.success) {
         setIsRegisterModalOpen(false);
         setNewPasskeyName('');
@@ -149,10 +149,7 @@ export const PasskeyVault: React.FC = () => {
           text: res.message || '패스키 등록이 취소되었습니다. 서버에 아무것도 저장되지 않았습니다.',
         });
       } else {
-        setFeedbackMessage({
-          type: 'error',
-          text: res.error || '패스키 등록 중 오류가 발생했습니다.',
-        });
+        setFeedbackMessage({ type: 'error', text: res.error || '패스키 등록에 실패했습니다.' });
       }
     } catch (err: unknown) {
       const errorMsg = err instanceof Error ? err.message : String(err);
@@ -955,7 +952,7 @@ export const PasskeyVault: React.FC = () => {
                   </ul>
                 </div>
 
-                <div className="flex items-center justify-end gap-2 pt-2">
+                <div className="flex flex-col gap-2 pt-2 sm:flex-row sm:items-center sm:justify-end">
                   <button
                     type="button"
                     onClick={() => {
@@ -965,21 +962,33 @@ export const PasskeyVault: React.FC = () => {
                         text: '사용자가 패스키 등록을 취소했습니다. 서버에 아무것도 저장되지 않았습니다. (T08-C25)',
                       });
                     }}
-                    className="cursor-pointer rounded-xl border border-neutral-200 px-4 py-2 text-xs font-semibold text-neutral-700 hover:bg-neutral-100 hover:underline dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800"
+                    className="cursor-pointer rounded-xl border border-neutral-200 px-3.5 py-2 text-xs font-semibold text-neutral-700 hover:bg-neutral-100 hover:underline dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800"
                   >
                     취소 (Cancel)
                   </button>
+
                   <button
-                    type="submit"
+                    type="button"
                     disabled={isLoading}
-                    className="flex cursor-pointer items-center gap-1.5 rounded-xl bg-neutral-900 px-4 py-2 text-xs font-bold text-white shadow-md hover:bg-neutral-800 hover:underline disabled:opacity-50 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-100"
+                    onClick={(e) => handleRegister(e, true)}
+                    className="flex cursor-pointer items-center justify-center gap-1.5 rounded-xl bg-neutral-900 px-4 py-2 text-xs font-bold text-white shadow-md hover:bg-neutral-800 hover:underline disabled:opacity-50 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-100"
                   >
                     {isLoading ? (
                       <RefreshCw className="h-3.5 w-3.5 animate-spin" />
                     ) : (
                       <Fingerprint className="h-3.5 w-3.5" />
                     )}
-                    <span>패스키 생성 및 등록</span>
+                    <span>즉시 패스키 생성 & 등록 (USB 불필요)</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    disabled={isLoading}
+                    onClick={(e) => handleRegister(e, false)}
+                    className="flex cursor-pointer items-center justify-center gap-1.5 rounded-xl border border-neutral-300 bg-white px-3.5 py-2 text-xs font-semibold text-neutral-800 hover:bg-neutral-50 hover:underline disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700"
+                  >
+                    <KeyRound className="h-3.5 w-3.5 text-neutral-600 dark:text-neutral-400" />
+                    <span>Windows Hello / USB 키 스캔</span>
                   </button>
                 </div>
               </form>
