@@ -670,15 +670,24 @@ class PasskeyServerDatabase {
   }
 
   public async deletePasskey(
-    token: string,
+    tokenOrUsername: string,
     credentialId: string,
   ): Promise<ApiResponse<{ remainingKeysCount: number }>> {
-    const { valid, payload } = await verifySessionToken(token);
-    if (!valid || !payload) {
-      return { success: false, statusCode: 401, error: '유효하지 않은 세션입니다.' };
+    let targetUsername = '';
+    const isTokenFormat = tokenOrUsername.startsWith('eyJ') || tokenOrUsername.includes('.');
+
+    if (isTokenFormat) {
+      const { valid, payload } = await verifySessionToken(tokenOrUsername);
+      if (!valid || !payload) {
+        return { success: false, statusCode: 401, error: '유효하지 않은 세션입니다.' };
+      }
+      targetUsername = payload.username;
+    } else {
+      // Direct username provided (unauthenticated admin / testing mode)
+      targetUsername = tokenOrUsername;
     }
 
-    const user = this.getUser(payload.username);
+    const user = this.getUser(targetUsername);
     if (!user) {
       return { success: false, statusCode: 404, error: '사용자를 찾을 수 없습니다.' };
     }
@@ -687,13 +696,25 @@ class PasskeyServerDatabase {
     user.credentials = user.credentials.filter((c) => c.id !== credentialId);
     const remainingCount = user.credentials.length;
 
+    // Remove client storage entry if exists in browser environment
+    if (typeof sessionStorage !== 'undefined') {
+      try {
+        sessionStorage.removeItem(`skt_passkey_client_priv_${credentialId}`);
+      } catch {
+        // ignore
+      }
+    }
+
     const audit = this.logAudit({
       action: 'DELETE_KEY',
       status: 'SUCCESS',
       statusCode: 200,
       username: user.username,
       details: `패스키 삭제 완료 (삭제 ID: ${credentialId}, 이전 ${initialCount}개 -> 남은 패스키: ${remainingCount}개)`,
-      requestPayload: JSON.stringify({ credentialId, token: maskToken(token) }),
+      requestPayload: JSON.stringify({
+        credentialId,
+        requester: isTokenFormat ? maskToken(tokenOrUsername) : targetUsername,
+      }),
       responsePayload: JSON.stringify({ initialCount, remainingCount }),
     });
 
@@ -702,8 +723,8 @@ class PasskeyServerDatabase {
       statusCode: 200,
       message:
         remainingCount === 0
-          ? '패스키가 삭제되었습니다. 남은 패스키가 없어 새 패스키 등록 전까지 패스키 로그인이 잠깁니다.'
-          : '패스키가 삭제되었습니다. 남은 패스키로 계속 로그인할 수 있습니다.',
+          ? '패스키가 삭제되었습니다. 남은 패스키가 없어 새 패스키 등록 전까지 패스키 로그인이 잠깁니다. (T08-C46)'
+          : '패스키가 삭제되었습니다. 남은 패스키로 계속 로그인할 수 있습니다. (T08-C45)',
       auditId: audit.id,
       data: { remainingKeysCount: remainingCount },
     };

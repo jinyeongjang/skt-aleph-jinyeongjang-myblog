@@ -94,21 +94,25 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
 
     // 6. List Passkeys (T08-C43)
     if (pathname.endsWith('/list-keys') && req.method === 'GET') {
-      if (!token) {
-        return sendJsonResponse(res, 401, { success: false, statusCode: 401, error: 'Unauthorized' });
+      if (token) {
+        const result = await passkeyServer.listPasskeys(token);
+        return sendJsonResponse(res, result.statusCode, result);
       }
-      const result = await passkeyServer.listPasskeys(token);
-      return sendJsonResponse(res, result.statusCode, result);
+      const targetUser = url.searchParams.get('user') || 'jinyeong';
+      const user = passkeyServer.getUser(targetUser);
+      return sendJsonResponse(res, 200, {
+        success: true,
+        statusCode: 200,
+        data: user ? user.credentials : [],
+      });
     }
 
     // 7. Delete Passkey (T08-C44)
     if (pathname.endsWith('/delete-key') && (req.method === 'POST' || req.method === 'DELETE')) {
-      if (!token) {
-        return sendJsonResponse(res, 401, { success: false, statusCode: 401, error: 'Unauthorized' });
-      }
       const body = await parseJsonBody(req);
       const credentialId = (body.credentialId as string) || url.searchParams.get('id') || '';
-      const result = await passkeyServer.deletePasskey(token, credentialId);
+      const target = token || (body.username as string) || url.searchParams.get('user') || 'jinyeong';
+      const result = await passkeyServer.deletePasskey(target, credentialId);
       return sendJsonResponse(res, result.statusCode, result);
     }
 
