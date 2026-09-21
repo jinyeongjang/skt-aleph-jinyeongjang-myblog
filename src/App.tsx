@@ -2,6 +2,7 @@ import React from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { About } from './components/About';
+import { PasskeyVault } from './components/PasskeyVault';
 import { Skills } from './components/Skills';
 import { Projects } from './components/Projects';
 import { Education } from './components/Education';
@@ -22,6 +23,7 @@ export const App: React.FC = () => {
       >
         <Hero />
         <About />
+        <PasskeyVault />
         <Skills />
         <Projects />
         <Education />

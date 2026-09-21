@@ -15,6 +15,7 @@ interface NavItem {
 
 const NAV_ITEMS: NavItem[] = [
   { href: '#about', label: '소개', desc: '성장형 개발자 가치관 및 프로필' },
+  { href: '#vault', label: '비공개금고', desc: 'WebAuthn 패스키 잠금 구역' },
   { href: '#skills', label: '기술', desc: '보안·네트워크, 웹 개발 스택' },
   { href: '#projects', label: '프로젝트', desc: 'SKT ALEPH 1기 핵심 활동 내역' },
   { href: '#education', label: '학력/이력', desc: '컴퓨터공학 학력 및 교육 이력' },
