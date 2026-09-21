@@ -12,6 +12,28 @@
 
 ---
 
+## 📑 목차 (Table of Contents)
+
+1. [🌟 핵심 특징 (Key Highlights)](#-핵심-특징-key-highlights)
+2. [📂 프로젝트 구조 및 컴포넌트 아키텍처](#-프로젝트-구조-및-컴포넌트-아키텍처)
+3. [🛠️ 기술 스택 (Tech Stack)](#️-기술-스택-tech-stack)
+4. [💻 로컬 개발 및 품질 검증 스크립트](#-로컬-개발-및-품질-검증-스크립트)
+5. [📋 과제 평가 기준 및 AI 에이전트 규칙 정의](#-과제-평가-기준-및-ai-에이전트-규칙-정의)
+6. [📝 과제 8: 내 소개 페이지에 패스키 달기 — 제출서](#-과제-8-내-소개-페이지에-패스키-달기--제출서-submission)
+   - [1. 제출 링크](#1-제출-링크)
+   - [2. 짧은 확인 방법 4줄 (T08-C52)](#2-짧은-확인-방법-4줄-t08-c52)
+   - [3. AI와 나의 판단 3줄 (T08-C53)](#3-ai와-나의-판단-3줄-t08-c53)
+   - [4. 인증 구현 설명서 여섯 항목 (T08-C47 ~ T08-C51)](#4-인증-구현-설명서-여섯-항목-t08-c47--t08-c51)
+   - [5. 완주 체크리스트 (T08)](#5-완주-체크리스트-t08)
+7. [📝 과제 1: 나를 소개하는 한 페이지 — 제출서](#-과제-1-나를-소개하는-한-페이지--제출서-submission)
+   - [1. 제출 링크](#1-제출-링크-1)
+   - [2. 짧은 확인 방법 4줄 (T01-C25)](#2-짧은-확인-방법-4줄-t01-c25)
+   - [3. AI와 나의 판단 3줄 (T01-C26)](#3-ai와-나의-판단-3줄-t01-c26)
+   - [4. 실제 결함 3개 수정 기록 (T01-C17)](#4-실제-결함-3개-수정-기록-t01-c17)
+   - [5. 완주 체크리스트 (T01)](#5-완주-체크리스트-t01)
+
+---
+
 ## 🌟 핵심 특징 (Key Highlights)
 
 - **무로그인 공개 정적 웹 (T01-C01, T01-C02, T08-C10)**: 별도의 회원가입이나 인증 절차 없이 브라우저 시크릿 창에서 즉시 모든 공개 포트폴리오 콘텐츠 열람 가능
@@ -130,9 +152,9 @@ npm run build
 
 1. **① 어디로 가나요**: 브라우저 새 시크릿 창을 열고 [https://skt-aleph-jinyeongjang-myblog.vercel.app](https://skt-aleph-jinyeongjang-myblog.vercel.app)에 접속하여 `#vault` (비공개 구역) 섹션으로 이동합니다.
 2. **② 세 단계 안에 무엇을 하나요**:
-   - 1단계: 계정 선택에서 `[장진영 (jinyeong)]`을 선택하고 `[장진영 계정 패스키로 열기]` 버튼을 클릭합니다.
-   - 2단계: 인증 완료 후 열린 비공개 자료실(4건의 기획/회고 문서)과 `[🔑 패스키 기기 관리]` 탭(2개의 등록된 패스키)을 확인합니다.
-   - 3단계: `[🧪 실시간 보안 검증 랩]` 탭으로 이동하여 `[2. 타 계정 비공개 자료 무단 조회(IDOR)]` 버튼을 클릭합니다.
+   - 1단계: 계정 선택에서 `[장진영 (jinyeong)]`을 선택하고 `[장진영 패스키 스캔 & 금고 열기]` 버튼을 클릭합니다.
+   - 2단계: 인증 완료 후 열린 비공개 자료실(4건의 기획/회고 문서)과 `[02 // 패스키 관리]` 탭(2개의 등록된 패스키)을 확인합니다.
+   - 3단계: `[03 // 보안 검증 랩]` 탭으로 이동하여 `[2. 타 계정 비공개 자료 무단 조회(IDOR)]` 버튼을 클릭합니다.
 3. **③ 무엇이 보이면 통과인가요**: 패스키 서명 검증 성공 배너와 함께 비공개 문서 4건이 즉시 렌더링되고, 보안 검증 랩에서 HTTP 403 Forbidden 응답 및 데이터 건수 무결성(시도 전후 동일)이 터미널에 표시되면 통과입니다.
 4. **④ 안 될 때는 무엇이 보이나요**: 비밀번호 입력창이 나타나거나, 인증 없이도 비공개 데이터가 화면/소스코드에 노출되거나, 타 계정 데이터 요청 시 403이 아닌 200으로 비인가 열람되는 현상이 발생합니다.
 
@@ -153,7 +175,7 @@ npm run build
 - **구현 방식**: 표준 **Web Crypto API (SubtleCrypto)** 및 브라우저 네이티브 **FIDO2 / WebAuthn API (`navigator.credentials`)** 기반 자체 구현 (Direct Implementation).
 - **사용 기술 및 라이브러리**:
   - 클라이언트: `navigator.credentials.create()`, `navigator.credentials.get()`, `crypto.subtle`
-  - 서버 및 암호 엔진: TypeScript 기반 자체 암호화 엔진 (`src/lib/passkey/crypto.ts`, `server.ts`)
+  - 서버 및 암호 엔진: TypeScript 기반 자체 암호화 엔진 ([`src/lib/passkey/crypto.ts`](src/lib/passkey/crypto.ts), [`src/lib/passkey/server.ts`](src/lib/passkey/server.ts))
   - 암호화 알고리즘: **ECDSA P-256 with SHA-256 (ES256, COSE Alg -7)**
   - 세션 식별자: HMAC-SHA256 암호학적 서명 기반 세션 토큰 (JWT 포맷)
 
@@ -182,14 +204,14 @@ npm run build
    - 토큰 검증 및 IDOR 인가 차단: [`src/lib/passkey/server.ts`](src/lib/passkey/server.ts) `PasskeyServerDatabase.getPrivateData()`
    - API 라우터 매핑: [`api/passkey.ts`](api/passkey.ts) `GET /api/passkey/private-data`
 
-#### ④ 안 열리는 것을 확인한 기록 (T08-C50)
+#### ④ 안 열리는 것을 확인한 기록 (T08-C50, T08-C41)
 
-| 검증 시나리오                                   | 요청 페이로드 (Request)                                                                                  | 서버 응답 (Response)                                                                                       | 판정 결과                     |
-| :---------------------------------------------- | :------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------- | :---------------------------- |
-| **1. 로그인 없이 열기** (T08-C16, C17)          | `GET /api/passkey/private-data`<br>`Authorization: (None)`                                               | `HTTP/1.1 401 Unauthorized`<br>`{"statusCode":401,"error":"인증되지 않았습니다."}`                         | **성공 (차단됨)**             |
-| **2. 남의 패스키로 열기 (IDOR)** (T08-C37, C38) | `GET /api/passkey/private-data?user=evaluator_test`<br>`Authorization: Bearer eyJhbGciOi...***MASKED***` | `HTTP/1.1 403 Forbidden`<br>`{"statusCode":403,"error":"타 계정의 비공개 자료에 접근할 권한이 없습니다."}` | **성공 (차단됨 · 건수 불변)** |
-| **3. 이미 쓴 질문 재사용** (T08-C31)            | `POST /api/passkey/login-verify`<br>`{"challenge":"Z3x...[USED]"}`                                       | `HTTP/1.1 401 Unauthorized`<br>`{"statusCode":401,"error":"이미 사용된 챌린지입니다. (재전송 공격 방어)"}` | **성공 (차단됨)**             |
-| **4. 패스키 삭제 뒤 로그인** (T08-C44, C45)     | `POST /api/passkey/login-verify`<br>`{"credentialId":"cred_deleted_key"}`                                | `HTTP/1.1 401 Unauthorized`<br>`{"statusCode":401,"error":"등록되지 않았거나 삭제된 패스키입니다."}`       | **성공 (차단됨)**             |
+| 검증 시나리오                                   | 거절 생성 소스 위치 (T08-C41)                               | 요청 페이로드 (Request)                                                                                  | 서버 응답 (Response)                                                                                       | 판정 결과                     |
+| :---------------------------------------------- | :---------------------------------------------------------- | :------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------- | :---------------------------- |
+| **1. 로그인 없이 열기** (T08-C16, C17)          | [`server.ts`](src/lib/passkey/server.ts) `getPrivateData()` | `GET /api/passkey/private-data`<br>`Authorization: (None)`                                               | `HTTP/1.1 401 Unauthorized`<br>`{"statusCode":401,"error":"인증되지 않았습니다."}`                         | **성공 (차단됨)**             |
+| **2. 남의 패스키로 열기 (IDOR)** (T08-C37, C38) | [`server.ts`](src/lib/passkey/server.ts) `getPrivateData()` | `GET /api/passkey/private-data?user=evaluator_test`<br>`Authorization: Bearer eyJhbGciOi...***MASKED***` | `HTTP/1.1 403 Forbidden`<br>`{"statusCode":403,"error":"타 계정의 비공개 자료에 접근할 권한이 없습니다."}` | **성공 (차단됨 · 건수 불변)** |
+| **3. 이미 쓴 질문 재사용** (T08-C31)            | [`server.ts`](src/lib/passkey/server.ts) `verifyLogin()`    | `POST /api/passkey/login-verify`<br>`{"challenge":"Z3x...[USED]"}`                                       | `HTTP/1.1 401 Unauthorized`<br>`{"statusCode":401,"error":"이미 사용된 챌린지입니다. (재전송 공격 방어)"}` | **성공 (차단됨)**             |
+| **4. 패스키 삭제 뒤 로그인** (T08-C44, C45)     | [`server.ts`](src/lib/passkey/server.ts) `verifyLogin()`    | `POST /api/passkey/login-verify`<br>`{"credentialId":"cred_deleted_key"}`                                | `HTTP/1.1 401 Unauthorized`<br>`{"statusCode":401,"error":"등록되지 않았거나 삭제된 패스키입니다."}`       | **성공 (차단됨)**             |
 
 #### ⑤ AI와 나
 
@@ -247,3 +269,11 @@ npm run build
 1. **결함 1 (더미 링크)**: 전: `https://example.com` ➔ 후: `https://skt-aleph-jinyeongblog.vercel.app` (T01-C13 준수)
 2. **결함 2 (연락처 및 개인정보 보호)**: 전: 개인 연락처 노출 우려 또는 더미 이메일 ➔ 후: GitHub 공식 noreply 이메일(`jinyeongjang@users.noreply.github.com`) 및 클립보드 복사 (T01-C05, T01-C23 준수)
 3. **결함 3 (웹 접근성 명암비 미달)**: 전: `text-neutral-400`(2.8:1) ➔ 후: `text-neutral-500`(4.6:1) 및 `text-neutral-600`(7.0:1) 이상 교체 (T01-C16 준수)
+
+### 5. 완주 체크리스트 (T01)
+
+- [x] **대상·공개 범위와 근거를 정했습니다 (T01-C03 ~ T01-C09)**: 대상/목적 1문장, 공개 정보 3건, 비공개 정보 3건, STAR 기반 강점 4건 및 공인 근거 명시 완료.
+- [x] **두 기준 화면과 실제 결함을 검사했습니다 (T01-C10 ~ T01-C18)**: 1366×768 및 1920×1080 첫 화면 3요소(소개·활동·근거) 동시 노출, 가로 넘침 0건, 더미링크/명암비 등 3개 결함 수정 완료.
+- [x] **상호작용을 마우스와 키보드로 확인했습니다 (T01-C19 ~ T01-C22)**: 공개/비공개 탭 전환(마우스 클릭 & Tab/Enter/Space), 헤더 고정, 애니메이션 끄기(Reduce Motion) 토글 확인 완료.
+- [x] **공개 금지 정보와 비밀값이 없습니다 (T01-C23, T01-C24)**: 주민등록번호, 개인 휴대전화 번호, 상세 자택 주소 및 API 키/비밀번호 0건 전수 감사 완료.
+- [x] **짧은 확인법과 AI/본인 판단을 제출합니다 (T01-C25, T01-C26)**: 4줄 확인 절차 및 3줄 판단 기록 작성 완료.
