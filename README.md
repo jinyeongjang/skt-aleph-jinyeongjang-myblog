@@ -284,3 +284,63 @@ npm run build
 - [x] **상호작용을 마우스와 키보드로 확인했습니다 (T01-C19 ~ T01-C22)**: 공개/비공개 탭 전환(마우스 클릭 & Tab/Enter/Space), 헤더 고정, 애니메이션 끄기(Reduce Motion) 토글 확인 완료.
 - [x] **공개 금지 정보와 비밀값이 없습니다 (T01-C23, T01-C24)**: 주민등록번호, 개인 휴대전화 번호, 상세 자택 주소 및 API 키/비밀번호 0건 전수 감사 완료.
 - [x] **짧은 확인법과 AI/본인 판단을 제출합니다 (T01-C25, T01-C26)**: 4줄 확인 절차 및 3줄 판단 기록 작성 완료.
+
+---
+
+## 📝 과제 12: 마지막 과제 BR-A — 나를 소개하는 사이트, 그리고 계속 새로 쓰는 장치 (Submission)
+
+### 1. 제출물 목록 (BRA-C20, BRA-C21)
+
+- **결과물 주소 (무로그인 공개 사이트)**: [https://skt-aleph-jinyeongjang-myblog.vercel.app](https://skt-aleph-jinyeongjang-myblog.vercel.app)
+- **소스 주소 (GitHub 공개 레포지토리)**: [https://github.com/jinyeongjang/skt-aleph-jinyeongjang-myblog](https://github.com/jinyeongjang/skt-aleph-jinyeongjang-myblog)
+- **지원 문서 모음 파일 (DOCX / MD / TXT)**:
+  - DOCX 합본: [`/downloads/resume-coverletter-portfolio.docx`](file:///C:/Users/user/Desktop/SKT_ALEPH/1-8-12_SKT_ALEPH_jinyeongjang_myblog/public/downloads/resume-coverletter-portfolio.docx)
+  - MD 합본: [`/downloads/resume-coverletter-portfolio.md`](file:///C:/Users/user/Desktop/SKT_ALEPH/1-8-12_SKT_ALEPH_jinyeongjang_myblog/public/downloads/resume-coverletter-portfolio.md)
+  - TXT 합본: [`/downloads/resume-coverletter-portfolio.txt`](file:///C:/Users/user/Desktop/SKT_ALEPH/1-8-12_SKT_ALEPH_jinyeongjang_myblog/public/downloads/resume-coverletter-portfolio.txt)
+- **장치 ZIP (실행 소스 + README + 마지막 결과)**:
+  - ZIP 파일: [`/downloads/portfolio-updater.zip`](file:///C:/Users/user/Desktop/SKT_ALEPH/1-8-12_SKT_ALEPH_jinyeongjang_myblog/public/downloads/portfolio-updater.zip)
+
+---
+
+### 2. 짧은 확인 방법 4줄 (BRA-C11)
+
+1. **어디로 가나요**: 브라우저 새 시크릿 창에서 [https://skt-aleph-jinyeongjang-myblog.vercel.app](https://skt-aleph-jinyeongjang-myblog.vercel.app) 주소로 접속합니다.
+2. **3단계 이내 무엇을 하나요**:
+   - ① 첫 화면에서 본인 이름(장진영)과 "…한 사람" 한 줄 소개를 확인하고 [01. 내 이야기] 버튼을 눌러 1,500자 자기소개 본편과 세 능력(자기조절력·대인관계력·자기동기력) 장면을 확인합니다.
+   - ② [02. 13주 숫자 기록]에서 3대 출처(내 출석 기록, 리추얼 기록, 내 제출 현황)와 고난 짝짓기를 확인하고, [03. 대표작]에서 10번 논문 링크 및 13번 앱 예정 자리를 확인합니다.
+   - ③ [04. 지원문서]에서 이력서·자소서·경력기술서(12대 과제 STAR)를 확인하고, [새로 쓰는 장치]에서 2회 실행 해시 일치 상태와 `portfolio-updater.zip` 다운로드를 확인합니다.
+3. **무엇이 보이면 통과인가요**: 로그인이나 비밀번호 창 없이 전체 콘텐츠가 즉시 열리고, 1,500자 본편과 세 능력 장면, 출처가 명시된 13주 숫자 칸과 고난 짝짓기, 10번 논문 라이브 링크 및 13번 앱 예정 자리, 문서 파일 3종 및 장치 ZIP이 비밀번호 없이 다운로드되면 통과입니다.
+4. **안 될 때 무엇이 보이나요**: 로그인/비밀번호 입력창이 요구되거나, 본인 외 다른 사람의 실명이 노출되거나, 13번 앱 자리가 비어 있지 않고 누락되어 있거나, 장치 두 번 실행 결과가 달라지는 경우입니다.
+
+---
+
+### 3. AI와 나의 판단 3줄 (BRA-C12)
+
+1. **AI에게 맡긴 일**: 11번 소설(3만 자)에서 사실에 부합하는 핵심 갈등·극복 대목 발췌, 13주 기록 데이터 스키마화, 이력서/경력기술서 STAR 구조화 초안 작성, Oxlint/Prettier 품질 자동화 스크립트 작성.
+2. **학생이 직접 판단한 일**: 2024년 11월 캡스톤 시연 소켓 고갈(28,492개) 고난 일화 선정, 각색된 소설 문장을 엄밀한 사실로 환원, 첫 문장과 마지막 문장 직접 집필, 13주 출석 100%와 리추얼 80회를 고난 장면과 직접 짝지음, 장치 결정론적 검증 기준 수립.
+3. **AI 제안을 따르지 않은 일**: AI가 소설 속 과장된 표현(예: "천재적인 직관으로 모든 트래픽을 장악한 개발자", "기록에 없는 글로벌 분산 클라우드 총괄 경력")을 본편에 넣자고 제안했으나, 채용 담당자가 3분 안에 읽는 실제 지원 사이트이므로 일체의 과장을 전면 기각하고 사실에 입각한 1,500자 담백한 서사로 정제함.
+
+---
+
+### 4. 과제 12 완주 체크리스트 7대 항목 (BRA-C01 ~ BRA-C10)
+
+- [x] **소설에서 자기소개의 본편을 뽑고 각색한 대목을 사실로 되돌렸습니다 (BRA-C01, BRA-C02)**:
+  - 11번 소설 이야기를 바탕으로 각색한 대목을 사실로 환원한 1,591자(공백 제외 1,212자) 자기소개 본편 작성 완료. 소설 텍스트 원문은 사이트에 넣지 않고 본편으로 정제함.
+  - 고난(2024.11 셧다운)에서 시작해 다시 일어난 날(소켓 원리 규명)을 지나 더 나아진 지금으로 이어지며, 자기조절력·대인관계력·자기동기력 세 능력이 날짜 있는 장면과 함께 드러남.
+- [x] **첫 화면에 내 이름과 한 줄 소개를 내 손으로 썼습니다 (BRA-C03, BRA-C04)**:
+  - 본인 이름(`장진영`) 및 `"2024년 11월 마감 3분 전 서버 다운의 절망을 딛고, 원리를 파고드는 집요함과 따뜻한 책임감으로 팀의 신뢰를 짓는 사람"` 한 줄 소개 작성 완료.
+  - 본편 첫 문장(`"2024년 11월 늦가을 새벽, 마감 시연 3분을 남겨두고 502 Bad Gateway 에러와 함께 서버가 완전히 멈췄을 때..."`)과 마지막 문장을 직접 손으로 집필함.
+- [x] **13주 기록의 숫자를 출처와 함께 넣고 하나를 고난 장면과 짝지었습니다 (BRA-C05)**:
+  - 3대 출처 명시: ① 「내 출석 기록」(65/65일 전수 출석 100%, 지각 0회, 결석 0회, 새벽 통학 30일 조기 입실), ② 「리추얼 기록」(40일 전수 80회 작성 100%), ③ 「내 제출 현황」(12개 과제 제출 100%, 자동화 테스트 전수 PASS).
+  - 고난 장면(2024년 11월 28,492개 소켓 고갈 장애)과 13주 출석 100% & 리추얼 80회를 짝지어 회복탄력성과 과제지속력을 증명함.
+- [x] **대표작 자리에 논문을 넣고 앱 자리를 마련했습니다 (BRA-C06)**:
+  - 10번 연구 논문(`알고리즘 문제 해결 및 단위 테스트 검증에서 다중 에이전트 협업 토폴로지...`) 라이브 데모, GitHub, DOCX 다운로드 완비.
+  - 13번 앱 자리 마련(슬롯 보존) 및 예정일(`2026년 10월 15일 공개 예정`) 명시 완료.
+- [x] **이력서·자기소개서·경력기술서를 문서로 만들었습니다 (BRA-C07, BRA-C08, BRA-C21)**:
+  - 이력서(장진영, 연락처, 학력 3.97, 자격 3종, 사상구청장 표창, ALEPH 1기), 자기소개서(본편 전수), 경력기술서(12대 과제 전수 한 줄 기술 & 세 능력 매핑 & STAR) 완비.
+  - DOCX, Markdown, Text 단일 합본 및 개별 파일 제공, 비밀번호 없이 즉시 열람 및 다운로드 보장.
+- [x] **장치를 두 번 돌려 같은 결과가 나오는 것을 새 폴더에서 확인했습니다 (BRA-C09)**:
+  - `portfolio-updater/` 스크립트(`updater.py` / `updater.js`) 및 `test_reproducibility.py`를 통해 새 임시 폴더에서 2회 연속 실행 SHA-256 해시 100% 일치(`219cb026...9e0771`) 검증 완료.
+  - `portfolio-updater.zip` 패키징 완료 및 웹 인터랙티브 시뮬레이터 탑재.
+- [x] **다른 사람의 실명과 비밀값을 지웠습니다 (BRA-C10)**:
+  - 장진영 본인 이름 및 공개하기로 정한 연락처(`jinyeongjang@users.noreply.github.com`) 하나만 남기고, 다른 사람의 실명 0건, 개인 휴대폰 번호 0건, 비밀번호 입력 필드 0개, API 키 하드코딩 0건 전수 검증 완료.

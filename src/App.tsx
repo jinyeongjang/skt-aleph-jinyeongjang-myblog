@@ -1,15 +1,12 @@
 import React from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
-import { About } from './components/About';
-import { PasskeyVault } from './components/PasskeyVault';
-import { Skills } from './components/Skills';
-import { Projects } from './components/Projects';
-import { Education } from './components/Education';
-import { Values } from './components/Values';
-import { Strengths } from './components/Strengths';
-import { WorkStyle } from './components/WorkStyle';
-import { Contact } from './components/Contact';
+import { Story } from './components/Story';
+import { Numbers } from './components/Numbers';
+import { FeaturedWorks } from './components/FeaturedWorks';
+import { Documents } from './components/Documents';
+import { RefreshEngine } from './components/RefreshEngine';
+import { SubmissionVerify } from './components/SubmissionVerify';
 import { Footer } from './components/Footer';
 
 export const App: React.FC = () => {
@@ -22,15 +19,12 @@ export const App: React.FC = () => {
         className="mx-auto max-w-4xl space-y-12 px-4 pt-20 pb-10 outline-none sm:space-y-16 sm:px-6 sm:pt-24 sm:pb-16"
       >
         <Hero />
-        <About />
-        <PasskeyVault />
-        <Skills />
-        <Projects />
-        <Education />
-        <Values />
-        <Strengths />
-        <WorkStyle />
-        <Contact />
+        <Story />
+        <Numbers />
+        <FeaturedWorks />
+        <Documents />
+        <RefreshEngine />
+        <SubmissionVerify />
       </main>
       <Footer />
     </div>

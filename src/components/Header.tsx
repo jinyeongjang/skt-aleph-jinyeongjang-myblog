@@ -14,21 +14,18 @@ interface NavItem {
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { href: '#about', label: '소개', desc: '성장형 개발자 가치관 및 프로필' },
-  { href: '#vault', label: '비공개금고', desc: 'WebAuthn 패스키 잠금 구역' },
-  { href: '#skills', label: '기술', desc: '보안·네트워크, 웹 개발 스택' },
-  { href: '#projects', label: '프로젝트', desc: 'SKT ALEPH 1기 핵심 활동 내역' },
-  { href: '#education', label: '학력/이력', desc: '컴퓨터공학 학력 및 교육 이력' },
-  { href: '#strengths', label: '강점(근거)', desc: 'STAR 기반 실무 경험과 공인 근거' },
-  { href: '#values', label: '가치관', desc: '협업 철학 및 핵심 직무 가치' },
-  { href: '#manual', label: '설명서', desc: '개발자 사용설명서 & 작동방식' },
-  { href: '#contact', label: '연락처', desc: '공식 이메일 및 GitHub 소통' },
+  { href: '#story', label: '내 이야기', desc: '1,500자 고난과 극복 자기소개' },
+  { href: '#numbers', label: '13주 숫자', desc: '출석·리추얼·제출 3대 출처 지표' },
+  { href: '#featured', label: '대표작', desc: '10번 논문 & 13번 앱 예정 자리' },
+  { href: '#documents', label: '지원문서', desc: '이력서·자기소개서·경력기술서' },
+  { href: '#refresh-engine', label: '새로 쓰는 장치', desc: '결정론적 자동 갱신 엔진' },
+  { href: '#submission', label: '완주 검증', desc: '짧은 확인 방법 4줄 & AI판단 3줄' },
 ];
 
 export const Header: React.FC<HeaderProps> = ({ className }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState<string>('#about');
+  const [activeSection, setActiveSection] = useState<string>('#story');
 
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     if (typeof window !== 'undefined') {
@@ -61,7 +58,7 @@ export const Header: React.FC<HeaderProps> = ({ className }) => {
           return;
         }
       }
-      setActiveSection('#about');
+      setActiveSection('#story');
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });

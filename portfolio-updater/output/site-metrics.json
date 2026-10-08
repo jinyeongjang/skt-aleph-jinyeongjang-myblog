@@ -1,0 +1,31 @@
+{
+  "affiliation": "SKT ALEPH 1기 기업 현장 중심 보안 & 네트워크 인프라 트랙",
+  "attendance": {
+    "absentCount": 0,
+    "attendedDays": 65,
+    "earlyArrivalDays": 30,
+    "lateCount": 0,
+    "rate": "100.0%",
+    "source": "내 출석 기록",
+    "totalDays": 65
+  },
+  "author": "장진영",
+  "calculatedAt": "2026-10-08T00:00:00Z",
+  "pairedHardship": {
+    "competency": "회복탄력성 및 과제지속력",
+    "hardship": "2024년 11월 캡스톤 시연 3분 전 소켓 고갈(28,492개) 502 Bad Gateway 장애",
+    "pairedMetric": "SKT ALEPH 13주 동안 출석률 100.0%(지각/결석 0회) 및 리추얼 80회 전수 완주"
+  },
+  "projects": {
+    "completionRate": "100%",
+    "source": "내 제출 현황",
+    "submittedCount": 11
+  },
+  "rituals": {
+    "daysCount": 40,
+    "eveningLogs": 40,
+    "morningLogs": 40,
+    "source": "리추얼 기록",
+    "totalLogs": 80
+  }
+}

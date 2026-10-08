@@ -1,0 +1,79 @@
+[
+  {
+    "taskId": "task-01",
+    "title": "무로그인 반응형 포트폴리오 웹",
+    "period": "2026.08",
+    "competency": "대인관계력",
+    "status": "PASS"
+  },
+  {
+    "taskId": "task-02",
+    "title": "CYBER DODGER 30s 레이싱 아케이드",
+    "period": "2026.08",
+    "competency": "자기동기력",
+    "status": "PASS"
+  },
+  {
+    "taskId": "task-03",
+    "title": "ToonsCard 다중 화면비 스튜디오",
+    "period": "2026.09",
+    "competency": "자기조절력",
+    "status": "PASS"
+  },
+  {
+    "taskId": "task-04",
+    "title": "오늘의 진짜 정보판 실시간 대시보드",
+    "period": "2026.09",
+    "competency": "자기조절력",
+    "status": "PASS"
+  },
+  {
+    "taskId": "task-05",
+    "title": "LLM 인수인계 벤치마크 시스템",
+    "period": "2026.09",
+    "competency": "자기동기력",
+    "status": "PASS"
+  },
+  {
+    "taskId": "task-06-07",
+    "title": "플랜두씨 다이어리 1 & 2",
+    "period": "2026.09",
+    "competency": "자기조절력",
+    "status": "PASS"
+  },
+  {
+    "taskId": "task-08",
+    "title": "WebAuthn 무암호화 패스키 금고",
+    "period": "2026.09",
+    "competency": "자기동기력",
+    "status": "PASS"
+  },
+  {
+    "taskId": "task-09",
+    "title": "리추얼 에이전트 서사 및 강점 지도",
+    "period": "2026.09",
+    "competency": "대인관계력",
+    "status": "PASS"
+  },
+  {
+    "taskId": "task-10",
+    "title": "다중 에이전트 토폴로지 연구 논문",
+    "period": "2026.10",
+    "competency": "자기동기력",
+    "status": "PASS"
+  },
+  {
+    "taskId": "task-11",
+    "title": "성장 서사 소설 (열쇠 없는 문을 지키는 법)",
+    "period": "2026.10",
+    "competency": "자기조절력",
+    "status": "PASS"
+  },
+  {
+    "taskId": "task-12",
+    "title": "자기소개 사이트 & 계속 새로 쓰는 장치",
+    "period": "2026.10",
+    "competency": "대인관계력",
+    "status": "PASS"
+  }
+]
