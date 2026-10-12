@@ -565,7 +565,7 @@ export const REFRESH_ENGINE_DATA: RefreshEngineData = {
 export const SUBMISSION_DATA: SubmissionData = {
   quickVerification4Lines: {
     whereToGo:
-      '① 어디서 확인하나요: 공개 결과물 URL(https://skt-aleph-jinyeongjang-myblog.vercel.app)과 제출한 문서·장치 파일(/downloads/resume-coverletter-portfolio.md, .docx, .txt 및 portfolio-updater.zip).',
+      '① 어디서 확인하나요: 1) 공개 사이트(https://skt-aleph-jinyeongjang-myblog.vercel.app), 2) 사이트 내 위치(#story: 1,602자 본편 서사, #numbers: 13주 6대 숫자와 고난 연계, #works: 10번 논문·13번 앱 슬롯), 3) 지원 문서(/downloads/resume-coverletter-portfolio.docx/.md/.txt 내 이력서·자소서·12개 과제 STAR), 4) 장치 ZIP(/downloads/portfolio-updater.zip 내 updater.py/.js 실행소스, README.md, inputs/, output/, test_reproducibility.py).',
     whatToDoIn3Steps:
       '② 무엇을 하나요 (3단계 이내): 1단계) 브라우저 시크릿 창에서 공개 URL로 접속하여 첫 화면 이름·한 줄 소개, [01. 내 이야기] 1,500자 본편, [02. 13주 숫자] 고난 극복 지표 연계, [03. 대표작] 10번 논문 및 13번 앱 슬롯을 확인합니다. 2단계) [04. 지원 문서]에서 이력서·자소서·경력기술서 뷰어를 열람하고 문서 파일 3종과 장치 ZIP을 다운로드합니다. 3단계) 새 임시 폴더에서 장치 2회 실행(python test_reproducibility.py) 또는 웹 시뮬레이터로 SHA-256 해시 일치를 확인합니다.',
     whatShowsSuccess:

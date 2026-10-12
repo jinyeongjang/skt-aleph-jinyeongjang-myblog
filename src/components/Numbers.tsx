@@ -45,8 +45,8 @@ export const Numbers: React.FC = () => {
               과거의 오류 실패를 극복한 13주 65일 전수 완주 (출석률 100% & 리추얼 80회)
             </h3>
             <p className="text-xs leading-relaxed break-keep text-neutral-700 sm:text-sm dark:text-neutral-300">
-              <strong>고난 장면 (2024년 11월):</strong> 프로젝트 진행 중 예기치 못한 오류 발생으로 문제 해결을 위해 노력함 ➔{' '}
-              <br className="hidden sm:inline" />
+              <strong>고난 장면 (2024년 11월):</strong> 프로젝트 진행 중 예기치 못한 오류 발생으로 문제 해결을 위해
+              노력함 ➔ <br className="hidden sm:inline" />
               <strong>숫자 뒷받침:</strong> SKT ALEPH 13주 동안{' '}
               <span className="font-bold text-blue-700 dark:text-blue-300">「내 출석 기록」 100%(지각·결석 0회)</span>와{' '}
               <span className="font-bold text-emerald-700 dark:text-emerald-300">
