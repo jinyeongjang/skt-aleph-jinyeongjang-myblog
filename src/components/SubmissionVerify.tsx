@@ -109,7 +109,7 @@ export const SubmissionVerify: React.FC = () => {
           </button>
         </div>
 
-        <div className="space-y-3 text-xs leading-relaxed sm:text-sm">
+        <div className="space-y-3 text-xs leading-relaxed break-keep sm:text-sm">
           <div className="rounded-xl border border-neutral-200 bg-neutral-50 p-3.5 dark:border-neutral-800 dark:bg-neutral-800/40">
             <span className="font-bold text-blue-700 dark:text-blue-400">① 어디로 가나요: </span>
             <span className="text-neutral-800 dark:text-neutral-200">
@@ -153,7 +153,7 @@ export const SubmissionVerify: React.FC = () => {
           </button>
         </div>
 
-        <div className="space-y-3 text-xs leading-relaxed sm:text-sm">
+        <div className="space-y-3 text-xs leading-relaxed break-keep sm:text-sm">
           <div className="rounded-xl border border-neutral-200 bg-neutral-50 p-3.5 dark:border-neutral-800 dark:bg-neutral-800/40">
             <span className="font-bold text-purple-700 dark:text-purple-400">① AI에게 맡긴 일: </span>
             <span className="text-neutral-800 dark:text-neutral-200">
@@ -187,7 +187,7 @@ export const SubmissionVerify: React.FC = () => {
                 HTTPS 배포 URL 단일 제출
               </span>
             </div>
-            <p className="text-xs text-neutral-600 dark:text-neutral-400">
+            <p className="text-xs break-keep text-neutral-600 dark:text-neutral-400">
               계정 생성 · 로그인 · 비밀번호 · OAuth · CAPTCHA 없이 모든 기능이 시크릿 창에서 즉시 동작하며, 비밀번호
               필드 0개 및 타인 실명 0건을 준수합니다.
             </p>

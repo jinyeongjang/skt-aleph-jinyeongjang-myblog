@@ -75,7 +75,7 @@ def run_refresh_engine():
             "source": "내 제출 현황"
         },
         "pairedHardship": {
-            "hardship": "2024년 11월 캡스톤 시연 3분 전 소켓 고갈(28,492개) 502 Bad Gateway 장애",
+            "hardship": "2024년 11월 프로젝트 진행 중 예기치 못한 오류 발생 및 문제 해결을 위한 노력",
             "pairedMetric": f"SKT ALEPH 13주 동안 출석률 {attendance_rate}%(지각/결석 0회) 및 리추얼 {total_rituals}회 전수 완주",
             "competency": "회복탄력성 및 과제지속력"
         }

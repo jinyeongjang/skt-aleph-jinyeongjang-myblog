@@ -12,7 +12,12 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
   };
 
   return (
-    <footer className={cn('border-t border-neutral-200/80 bg-white py-10 text-xs text-neutral-600', className)}>
+    <footer
+      className={cn(
+        'border-t border-neutral-200/80 bg-white py-10 text-xs text-neutral-600 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-400',
+        className,
+      )}
+    >
       <div className="mx-auto flex max-w-4xl flex-col items-center justify-between gap-4 px-6 sm:flex-row">
         <p className="text-center sm:text-left">
           © {new Date().getFullYear()} 장진영. SKT ALEPH 1기 수강생 포트폴리오.
@@ -21,7 +26,7 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
         <button
           type="button"
           onClick={scrollToTop}
-          className="group flex items-center gap-1.5 rounded-full border border-neutral-200 bg-white px-3 py-1.5 text-neutral-700 transition-colors hover:border-neutral-300 hover:text-neutral-900 focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:outline-none"
+          className="group flex items-center gap-1.5 rounded-full border border-neutral-200 bg-white px-3.5 py-1.5 text-neutral-700 transition-colors hover:border-neutral-300 hover:text-neutral-900 focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:outline-none dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:border-neutral-700 dark:hover:text-white"
         >
           <span>맨 위로</span>
           <ArrowUp className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5" />

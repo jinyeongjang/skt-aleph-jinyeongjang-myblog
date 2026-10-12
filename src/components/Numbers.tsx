@@ -39,13 +39,13 @@ export const Numbers: React.FC = () => {
           <div className="space-y-2">
             <div className="inline-flex items-center gap-1.5 rounded-full border border-blue-300 bg-blue-100 px-3 py-0.5 text-[11px] font-black text-blue-900 dark:border-blue-800 dark:bg-blue-900/70 dark:text-blue-200">
               <Flame className="h-3.5 w-3.5 text-amber-500" />
-              <span>[고난 장면 ↔ 13주 기록 숫자 짝짓기]</span>
+              <span>[고난 극복 서사 ↔ 13주 기록 핵심 지표 연계]</span>
             </div>
-            <h3 className="text-lg font-black text-neutral-900 sm:text-xl dark:text-white">
-              과거의 셧다운 실패를 극복한 13주 65일 전수 완주 (출석률 100% & 리추얼 80회)
+            <h3 className="text-lg font-black break-keep text-neutral-900 sm:text-xl dark:text-white">
+              과거의 오류 실패를 극복한 13주 65일 전수 완주 (출석률 100% & 리추얼 80회)
             </h3>
-            <p className="text-xs leading-relaxed text-neutral-700 sm:text-sm dark:text-neutral-300">
-              <strong>고난 장면 (2024년 11월):</strong> 마감 3분 전 28,492개 소켓 누수로 서버가 멈췄던 미숙함 ➔{' '}
+            <p className="text-xs leading-relaxed break-keep text-neutral-700 sm:text-sm dark:text-neutral-300">
+              <strong>고난 장면 (2024년 11월):</strong> 프로젝트 진행 중 예기치 못한 오류 발생으로 문제 해결을 위해 노력함 ➔{' '}
               <br className="hidden sm:inline" />
               <strong>숫자 뒷받침:</strong> SKT ALEPH 13주 동안{' '}
               <span className="font-bold text-blue-700 dark:text-blue-300">「내 출석 기록」 100%(지각·결석 0회)</span>와{' '}
@@ -90,7 +90,7 @@ export const Numbers: React.FC = () => {
                 </span>
                 {metric.pairedHardship && (
                   <span className="rounded-full bg-rose-100 px-2 py-0.5 text-[10px] font-extrabold text-rose-700 dark:bg-rose-950/70 dark:text-rose-300">
-                    고난 짝짓기
+                    고난 극복 연계 지표
                   </span>
                 )}
               </div>
@@ -105,16 +105,18 @@ export const Numbers: React.FC = () => {
                 </div>
               </div>
 
-              <p className="text-xs leading-relaxed text-neutral-600 dark:text-neutral-300">{metric.description}</p>
+              <p className="text-xs leading-relaxed break-keep text-neutral-600 dark:text-neutral-300">
+                {metric.description}
+              </p>
             </div>
 
             <div className="mt-4 border-t border-neutral-100 pt-3 dark:border-neutral-800">
-              <div className="text-[10px] text-neutral-500 dark:text-neutral-400">
+              <div className="text-[10px] break-keep text-neutral-500 dark:text-neutral-400">
                 <span className="font-semibold">원천 근거:</span> {metric.sourceDetail}
               </div>
               {metric.pairedHardship && (
-                <div className="mt-1.5 rounded-lg bg-neutral-50 p-2 text-[10px] text-neutral-700 dark:bg-neutral-800/60 dark:text-neutral-300">
-                  <span className="font-bold text-rose-600 dark:text-rose-400">고난 연결: </span>
+                <div className="mt-1.5 rounded-lg bg-neutral-50 p-2 text-[10px] break-keep text-neutral-700 dark:bg-neutral-800/60 dark:text-neutral-300">
+                  <span className="font-bold text-rose-600 dark:text-rose-400">극복 서사 연계: </span>
                   {metric.pairedHardship}
                 </div>
               )}
@@ -141,8 +143,8 @@ export const Numbers: React.FC = () => {
           <div className="grid grid-cols-1 gap-2 p-4 sm:grid-cols-3 sm:gap-4">
             <div className="font-bold text-emerald-700 dark:text-emerald-400">② 「리추얼 기록」</div>
             <div className="text-neutral-600 sm:col-span-2 dark:text-neutral-300">
-              30일간 작성한 아침 리추얼 30회 + 저녁 마무리 리추얼 30회(총 60건) 전수 일지(`assets/myritual.json`). 동료
-              피드백 30건 교차 수집 및 일일 복습 루틴 30일 완주.
+              40일간 작성한 아침 리추얼 40회 + 저녁 마무리 리추얼 40회(총 80건) 전수 일지(`ritual-history.json`). 동료
+              피드백 40일치 교차 수집 및 일일 복습 루틴 40일 완주.
             </div>
           </div>
           <div className="grid grid-cols-1 gap-2 p-4 sm:grid-cols-3 sm:gap-4">

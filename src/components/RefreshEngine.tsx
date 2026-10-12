@@ -155,12 +155,12 @@ export const RefreshEngine: React.FC = () => {
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         {/* 좌측: 입력 파일 3종 탭 */}
         <div className="rounded-3xl border border-neutral-200 bg-white/95 p-5 shadow-2xs backdrop-blur-md dark:border-neutral-800 dark:bg-neutral-900/95">
-          <div className="flex items-center justify-between border-b border-neutral-100 pb-3 dark:border-neutral-800">
+          <div className="flex flex-col gap-2 border-b border-neutral-100 pb-3 sm:flex-row sm:items-center sm:justify-between dark:border-neutral-800">
             <div className="flex items-center gap-2">
               <FileCode2 className="h-4 w-4 text-blue-600 dark:text-blue-400" />
               <span className="text-xs font-bold text-neutral-900 dark:text-white">입력 데이터 소스 (inputs/)</span>
             </div>
-            <div className="flex gap-1">
+            <div className="flex flex-wrap gap-1">
               {REFRESH_ENGINE_DATA.inputs.map((inp, idx) => (
                 <button
                   key={inp.fileName}
@@ -179,11 +179,13 @@ export const RefreshEngine: React.FC = () => {
           </div>
 
           <div className="mt-3 space-y-2">
-            <div className="flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400">
-              <span>{REFRESH_ENGINE_DATA.inputs[activeInputTab].description}</span>
-              <span className="font-bold">데이터: {REFRESH_ENGINE_DATA.inputs[activeInputTab].itemCount}건</span>
+            <div className="flex flex-wrap items-center justify-between gap-1 text-xs text-neutral-500 dark:text-neutral-400">
+              <span className="break-keep">{REFRESH_ENGINE_DATA.inputs[activeInputTab].description}</span>
+              <span className="shrink-0 font-bold">
+                데이터: {REFRESH_ENGINE_DATA.inputs[activeInputTab].itemCount}건
+              </span>
             </div>
-            <pre className="max-h-56 overflow-auto rounded-xl border border-neutral-200/80 bg-neutral-950 p-3 font-mono text-[11px] leading-relaxed text-emerald-400 dark:border-neutral-800">
+            <pre className="max-h-56 overflow-x-auto rounded-xl border border-neutral-200/80 bg-neutral-950 p-3 font-mono text-[11px] leading-relaxed text-emerald-400 dark:border-neutral-800">
               {REFRESH_ENGINE_DATA.inputs[activeInputTab].sample}
             </pre>
           </div>
@@ -191,23 +193,23 @@ export const RefreshEngine: React.FC = () => {
 
         {/* 우측: 실행 로그 터미널 */}
         <div className="rounded-3xl border border-neutral-200 bg-white/95 p-5 shadow-2xs backdrop-blur-md dark:border-neutral-800 dark:bg-neutral-900/95">
-          <div className="flex items-center justify-between border-b border-neutral-100 pb-3 dark:border-neutral-800">
+          <div className="flex flex-col gap-2 border-b border-neutral-100 pb-3 sm:flex-row sm:items-center sm:justify-between dark:border-neutral-800">
             <div className="flex items-center gap-2">
               <Terminal className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
               <span className="text-xs font-bold text-neutral-900 dark:text-white">
                 실행 로그 (Execution Console · 총 {runCount}회차)
               </span>
             </div>
-            <span className="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-extrabold text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
+            <span className="inline-flex items-center gap-1 self-start rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-extrabold text-emerald-800 sm:self-auto dark:bg-emerald-950 dark:text-emerald-300">
               <Check className="h-3 w-3" /> 결정론적 일치
             </span>
           </div>
 
-          <div className="mt-3 max-h-56 space-y-2 overflow-auto rounded-xl border border-neutral-200/80 bg-neutral-950 p-3 font-mono text-[11px] leading-relaxed text-neutral-200 dark:border-neutral-800">
+          <div className="mt-3 max-h-56 space-y-2 overflow-x-auto rounded-xl border border-neutral-200/80 bg-neutral-950 p-3 font-mono text-[11px] leading-relaxed text-neutral-200 dark:border-neutral-800">
             {runLog.map((log, idx) => (
-              <div key={idx} className="flex items-start gap-1.5">
-                <span className="font-bold text-emerald-400">&gt;</span>
-                <span>{log}</span>
+              <div key={idx} className="flex items-start gap-1.5 break-all">
+                <span className="shrink-0 font-bold text-emerald-400">&gt;</span>
+                <span className="break-all">{log}</span>
               </div>
             ))}
           </div>
@@ -216,16 +218,16 @@ export const RefreshEngine: React.FC = () => {
 
       {/* 능력별 문단 후보 & 승인 관리 (내가 승인한 것만 사이트에 반영) */}
       <div className="space-y-4">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <div className="space-y-0.5">
-            <h3 className="text-base font-black text-neutral-900 sm:text-lg dark:text-white">
+            <h3 className="text-base font-black break-keep text-neutral-900 sm:text-lg dark:text-white">
               장치가 추출한 능력별 문단 후보 & 학생 직접 승인 목록
             </h3>
-            <p className="text-xs text-neutral-500 dark:text-neutral-400">
+            <p className="text-xs break-keep text-neutral-500 dark:text-neutral-400">
               후보에는 날짜와 근거가 붙으며, 내가 승인(Toggle)한 문단만 사이트 본편과 지원 문서에 반영됩니다.
             </p>
           </div>
-          <span className="rounded-xl border border-neutral-200 bg-neutral-50 px-3 py-1 text-xs font-bold text-neutral-700 dark:border-neutral-800 dark:bg-neutral-800/80 dark:text-neutral-300">
+          <span className="shrink-0 self-start rounded-xl border border-neutral-200 bg-neutral-50 px-3 py-1 text-xs font-bold text-neutral-700 sm:self-auto dark:border-neutral-800 dark:bg-neutral-800/80 dark:text-neutral-300">
             승인 완료: {candidates.filter((c) => c.approved).length} / {candidates.length}건
           </span>
         </div>
@@ -255,7 +257,9 @@ export const RefreshEngine: React.FC = () => {
                   {cand.evidence}
                 </div>
 
-                <p className="text-xs leading-relaxed text-neutral-800 dark:text-neutral-200">"{cand.text}"</p>
+                <p className="text-xs leading-relaxed break-keep text-neutral-800 dark:text-neutral-200">
+                  "{cand.text}"
+                </p>
               </div>
 
               <div className="mt-4 flex items-center justify-between border-t border-neutral-100 pt-3 dark:border-neutral-800">

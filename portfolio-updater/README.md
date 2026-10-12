@@ -34,7 +34,7 @@ node updater.js
 
 `output/` 디렉터리에 새로 만들어진 결과 파일 3개를 확인합니다.
 
-- `output/site-metrics.json`: 재계산된 13주 출석률, 리추얼 수, 과제 제출률 및 고난 짝짓기
+- `output/site-metrics.json`: 재계산된 13주 출석률, 리추얼 수, 과제 제출률 및 고난 극복 지표 연계
 - `output/generated-paragraphs.md`: 세 능력(자기조절력·대인관계력·자기동기력)별 날짜·근거가 붙은 승인 문단 후보
 - `output/last-run.json`: 실행 성공 상태 및 SHA-256 무결성 검증 복합 해시
 

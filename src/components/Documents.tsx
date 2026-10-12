@@ -128,45 +128,48 @@ export const Documents: React.FC = () => {
         <button
           type="button"
           onClick={() => setActiveTab('resume')}
-          className={`flex-1 rounded-xl py-2.5 text-center text-xs font-bold transition-all sm:text-sm ${
+          className={`flex-1 rounded-xl px-1 py-2 text-center text-xs font-bold transition-all sm:px-3 sm:py-2.5 sm:text-sm ${
             activeTab === 'resume'
               ? 'bg-white text-neutral-900 shadow-xs dark:bg-neutral-800 dark:text-white'
               : 'text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white'
           }`}
         >
-          <div className="flex items-center justify-center gap-1.5">
-            <UserCheck className="h-4 w-4" />
-            <span>01. 이력서 (Resume)</span>
+          <div className="flex items-center justify-center gap-1 sm:gap-1.5">
+            <UserCheck className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+            <span className="hidden sm:inline">01. 이력서 (Resume)</span>
+            <span className="sm:hidden">01. 이력서</span>
           </div>
         </button>
 
         <button
           type="button"
           onClick={() => setActiveTab('coverletter')}
-          className={`flex-1 rounded-xl py-2.5 text-center text-xs font-bold transition-all sm:text-sm ${
+          className={`flex-1 rounded-xl px-1 py-2 text-center text-xs font-bold transition-all sm:px-3 sm:py-2.5 sm:text-sm ${
             activeTab === 'coverletter'
               ? 'bg-white text-neutral-900 shadow-xs dark:bg-neutral-800 dark:text-white'
               : 'text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white'
           }`}
         >
-          <div className="flex items-center justify-center gap-1.5">
-            <FileText className="h-4 w-4" />
-            <span>02. 자기소개서 (1,500자 본문)</span>
+          <div className="flex items-center justify-center gap-1 sm:gap-1.5">
+            <FileText className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+            <span className="hidden sm:inline">02. 자기소개서 (1,500자)</span>
+            <span className="sm:hidden">02. 자소서</span>
           </div>
         </button>
 
         <button
           type="button"
           onClick={() => setActiveTab('career')}
-          className={`flex-1 rounded-xl py-2.5 text-center text-xs font-bold transition-all sm:text-sm ${
+          className={`flex-1 rounded-xl px-1 py-2 text-center text-xs font-bold transition-all sm:px-3 sm:py-2.5 sm:text-sm ${
             activeTab === 'career'
               ? 'bg-white text-neutral-900 shadow-xs dark:bg-neutral-800 dark:text-white'
               : 'text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white'
           }`}
         >
-          <div className="flex items-center justify-center gap-1.5">
-            <Briefcase className="h-4 w-4" />
-            <span>03. 경력기술서 (12대 과제 STAR)</span>
+          <div className="flex items-center justify-center gap-1 sm:gap-1.5">
+            <Briefcase className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+            <span className="hidden sm:inline">03. 경력기술서 (12대 과제)</span>
+            <span className="sm:hidden">03. 경력기술서</span>
           </div>
         </button>
       </div>
@@ -342,17 +345,17 @@ export const Documents: React.FC = () => {
                   className="rounded-2xl border border-neutral-200 bg-neutral-50/60 p-4 transition-colors hover:bg-neutral-50 dark:border-neutral-800 dark:bg-neutral-800/40 dark:hover:bg-neutral-800/70"
                 >
                   <div className="flex flex-col justify-between gap-1 sm:flex-row sm:items-center">
-                    <div className="flex items-center gap-2">
-                      <span className="font-black text-neutral-900 dark:text-white">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="font-black break-keep text-neutral-900 dark:text-white">
                         {task.taskNumber} · {task.title}
                       </span>
                       {competencyBadge(task.competency)}
                     </div>
-                    <span className="text-[11px] font-semibold text-neutral-500">{task.period}</span>
+                    <span className="shrink-0 text-[11px] font-semibold text-neutral-500">{task.period}</span>
                   </div>
 
                   {/* STAR 1줄 서술 */}
-                  <div className="mt-2 text-xs leading-relaxed text-neutral-700 dark:text-neutral-300">
+                  <div className="mt-2 text-xs leading-relaxed break-keep text-neutral-700 dark:text-neutral-300">
                     <span className="font-bold text-neutral-900 dark:text-white">STAR 요약: </span>
                     <span className="font-bold text-rose-600 dark:text-rose-400">(S)</span> {task.situation} ➔{' '}
                     <span className="font-bold text-blue-600 dark:text-blue-400">(A)</span> {task.action} ➔{' '}

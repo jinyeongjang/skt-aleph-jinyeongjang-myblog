@@ -52,7 +52,7 @@ export const Story: React.FC = () => {
   };
 
   return (
-    <section id="story" className="scroll-mt-24 space-y-8">
+    <section id="story" className="scroll-mt-24 space-y-6 sm:space-y-8">
       {/* 섹션 헤더 */}
       <div className="flex flex-col justify-between gap-4 border-b border-neutral-200/80 pb-5 sm:flex-row sm:items-end dark:border-neutral-800">
         <div className="space-y-1.5">
@@ -60,10 +60,10 @@ export const Story: React.FC = () => {
             <BookOpen className="h-3.5 w-3.5" />
             <span>사이트의 본편 · 내 이야기 (11번 소설 사실 환원)</span>
           </div>
-          <h2 className="text-2xl font-black tracking-tight text-neutral-900 sm:text-3xl dark:text-white">
+          <h2 className="text-2xl font-black tracking-tight break-keep text-neutral-900 sm:text-3xl dark:text-white">
             {MAIN_STORY.title}
           </h2>
-          <p className="text-xs text-neutral-600 sm:text-sm dark:text-neutral-400">
+          <p className="text-xs break-keep text-neutral-600 sm:text-sm dark:text-neutral-400">
             고난에서 시작해 다시 일어나고 더 나아진 지금에 이르는 1,500자 자기소개 본편입니다. (BRA-C01 ~ BRA-C04)
           </p>
         </div>
@@ -100,11 +100,13 @@ export const Story: React.FC = () => {
               <span className="text-xs font-extrabold text-rose-700 dark:text-rose-400">
                 [내 손으로 쓴 첫 문장 · 날짜 있는 장면]
               </span>
-              <span className="py-0.2 rounded-full bg-rose-200/80 px-2 text-[10px] font-bold text-rose-800 dark:bg-rose-900/60 dark:text-rose-300">
+              <span className="rounded-full bg-rose-200/80 px-2 py-0.5 text-[10px] font-bold text-rose-800 dark:bg-rose-900/60 dark:text-rose-300">
                 {MAIN_STORY.hardshipDate}
               </span>
             </div>
-            <p className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">"{MAIN_STORY.firstSentence}"</p>
+            <p className="text-sm leading-relaxed font-semibold break-keep text-neutral-900 dark:text-neutral-100">
+              "{MAIN_STORY.firstSentence}"
+            </p>
           </div>
         </div>
       </div>
@@ -116,9 +118,9 @@ export const Story: React.FC = () => {
         </div>
 
         <article className="prose prose-neutral dark:prose-invert max-w-none text-neutral-800 sm:text-base dark:text-neutral-200">
-          <div className="space-y-5 text-sm leading-relaxed sm:text-base sm:leading-loose">
+          <div className="space-y-5 text-sm leading-relaxed break-keep sm:text-base sm:leading-8">
             {MAIN_STORY.fullText.split('\n\n').map((paragraph, idx) => (
-              <p key={idx} className="whitespace-pre-line">
+              <p key={idx} className="whitespace-pre-line text-neutral-800 dark:text-neutral-200">
                 {paragraph}
               </p>
             ))}
@@ -135,7 +137,9 @@ export const Story: React.FC = () => {
               <span className="text-xs font-extrabold text-blue-700 dark:text-blue-400">
                 [내 손으로 쓴 마지막 문장 · 앞으로의 다짐]
               </span>
-              <p className="text-sm font-bold text-neutral-900 dark:text-neutral-100">"{MAIN_STORY.lastSentence}"</p>
+              <p className="text-sm leading-relaxed font-bold break-keep text-neutral-900 dark:text-neutral-100">
+                "{MAIN_STORY.lastSentence}"
+              </p>
             </div>
           </div>
         </div>
@@ -171,43 +175,24 @@ export const Story: React.FC = () => {
                   <span className="text-[11px] font-semibold text-neutral-500 dark:text-neutral-400">{comp.date}</span>
                 </div>
 
-                <h4 className="text-sm font-black text-neutral-900 dark:text-white">{comp.title}</h4>
+                <h4 className="text-sm font-black break-keep text-neutral-900 dark:text-white">{comp.title}</h4>
 
-                <p className="text-xs leading-relaxed text-neutral-600 dark:text-neutral-300">{comp.scene}</p>
+                <p className="text-xs leading-relaxed break-keep text-neutral-600 dark:text-neutral-300">
+                  {comp.scene}
+                </p>
               </div>
 
               <div className="mt-4 border-t border-neutral-100 pt-3 dark:border-neutral-800">
                 <div className="text-[11px] font-bold text-neutral-500 dark:text-neutral-400">관찰된 결과:</div>
-                <div className="text-xs font-semibold text-neutral-800 dark:text-neutral-200">{comp.outcome}</div>
-                <div className="mt-1 text-[10px] text-neutral-500 dark:text-neutral-400">
+                <div className="text-xs font-semibold break-keep text-neutral-800 dark:text-neutral-200">
+                  {comp.outcome}
+                </div>
+                <div className="mt-1 text-[10px] break-keep text-neutral-500 dark:text-neutral-400">
                   <span className="font-bold">근거:</span> {comp.evidence}
                 </div>
               </div>
             </motion.div>
           ))}
-        </div>
-      </div>
-
-      {/* 고난 장면과 회복탄력성 짝짓기 배너 (Condition 12-2, 12-5) */}
-      <div className="rounded-2xl border border-neutral-200 bg-neutral-100/80 p-5 dark:border-neutral-800 dark:bg-neutral-900/80">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div className="space-y-1">
-            <div className="flex items-center gap-2">
-              <span className="rounded-md bg-neutral-800 px-2 py-0.5 text-[11px] font-extrabold text-white dark:bg-neutral-200 dark:text-neutral-900">
-                고난 ↔ 회복탄력성 짝짓기
-              </span>
-              <span className="text-xs font-bold text-neutral-700 dark:text-neutral-300">
-                13주 기록의 숫자로 뒷받침
-              </span>
-            </div>
-            <p className="text-xs text-neutral-600 dark:text-neutral-400">{MAIN_STORY.pairingWithNumbers}</p>
-          </div>
-          <a
-            href="#numbers"
-            className="inline-flex shrink-0 items-center justify-center rounded-xl bg-neutral-900 px-3.5 py-2 text-xs font-bold text-white transition-colors hover:bg-neutral-800 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200"
-          >
-            13주 숫자 기록 보기
-          </a>
         </div>
       </div>
     </section>

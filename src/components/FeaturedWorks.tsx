@@ -56,7 +56,7 @@ export const FeaturedWorks: React.FC = () => {
                   </div>
 
                   <div>
-                    <h3 className="text-base leading-snug font-black text-neutral-900 sm:text-lg dark:text-white">
+                    <h3 className="text-base leading-snug font-black break-keep text-neutral-900 sm:text-lg dark:text-white">
                       {work.title}
                     </h3>
                     <div className="mt-1 flex items-center gap-2 text-xs font-semibold text-neutral-500 dark:text-neutral-400">
@@ -66,7 +66,7 @@ export const FeaturedWorks: React.FC = () => {
                     </div>
                   </div>
 
-                  <p className="text-xs leading-relaxed text-neutral-600 sm:text-sm dark:text-neutral-300">
+                  <p className="text-xs leading-relaxed break-keep text-neutral-600 sm:text-sm dark:text-neutral-300">
                     {work.description}
                   </p>
 
@@ -74,7 +74,7 @@ export const FeaturedWorks: React.FC = () => {
                     <div className="text-[11px] font-extrabold text-blue-900 dark:text-blue-300">
                       핵심 연구 실증 성과 & 가설 검증 결과:
                     </div>
-                    <ul className="mt-2 space-y-1.5 text-xs text-neutral-700 dark:text-neutral-300">
+                    <ul className="mt-2 space-y-1.5 text-xs break-keep text-neutral-700 dark:text-neutral-300">
                       {work.keyMetrics.map((metric, idx) => (
                         <li key={idx} className="flex items-start gap-1.5">
                           <span className="font-bold text-blue-600 dark:text-blue-400">•</span>
@@ -143,7 +143,7 @@ export const FeaturedWorks: React.FC = () => {
                   </div>
 
                   <div>
-                    <h3 className="text-base leading-snug font-black text-neutral-800 sm:text-lg dark:text-neutral-200">
+                    <h3 className="text-base leading-snug font-black break-keep text-neutral-800 sm:text-lg dark:text-neutral-200">
                       {work.title}
                     </h3>
                     <div className="mt-1 flex items-center gap-2 text-xs font-bold text-amber-600 dark:text-amber-400">
@@ -151,7 +151,7 @@ export const FeaturedWorks: React.FC = () => {
                     </div>
                   </div>
 
-                  <p className="text-xs leading-relaxed text-neutral-600 sm:text-sm dark:text-neutral-400">
+                  <p className="text-xs leading-relaxed break-keep text-neutral-600 sm:text-sm dark:text-neutral-400">
                     {work.description}
                   </p>
 
@@ -159,7 +159,7 @@ export const FeaturedWorks: React.FC = () => {
                     <div className="text-[11px] font-extrabold text-neutral-700 dark:text-neutral-300">
                       대표작 자리 보존 규격 및 예정 정보:
                     </div>
-                    <ul className="mt-2 space-y-1.5 text-xs text-neutral-600 dark:text-neutral-400">
+                    <ul className="mt-2 space-y-1.5 text-xs break-keep text-neutral-600 dark:text-neutral-400">
                       {work.keyMetrics.map((metric, idx) => (
                         <li key={idx} className="flex items-start gap-1.5">
                           <span className="font-bold text-amber-500">•</span>
@@ -170,7 +170,7 @@ export const FeaturedWorks: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="mt-6 rounded-xl border border-amber-200/80 bg-amber-50/70 p-3 text-xs text-amber-900 dark:border-amber-900/40 dark:bg-amber-950/30 dark:text-amber-200">
+                <div className="mt-6 rounded-xl border border-amber-200/80 bg-amber-50/70 p-3 text-xs break-keep text-amber-900 dark:border-amber-900/40 dark:bg-amber-950/30 dark:text-amber-200">
                   <div className="flex items-center gap-2">
                     <Clock className="h-4 w-4 shrink-0 text-amber-600 dark:text-amber-400" />
                     <span className="font-semibold">
