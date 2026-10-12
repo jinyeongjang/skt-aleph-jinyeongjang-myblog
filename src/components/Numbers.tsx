@@ -137,7 +137,7 @@ export const Numbers: React.FC = () => {
             <div className="font-bold text-blue-700 dark:text-blue-400">① 「내 출석 기록」</div>
             <div className="text-neutral-600 sm:col-span-2 dark:text-neutral-300">
               SKT ALEPH 1기 13주(2026.07 ~ 2026.10, 총 65일 교육) 전수 출석 관리 시스템 데이터. 총 65일 전수 출석(100%),
-              지각 0회, 결석 0회, 조퇴 0회. 양산발 새벽 5:40 통학 30일 연속 1등 입실.
+              지각 0회, 결석 0회, 조퇴 0회. 양산발 새벽 5:40 통학 30일 연속 조기 입실.
             </div>
           </div>
           <div className="grid grid-cols-1 gap-2 p-4 sm:grid-cols-3 sm:gap-4">

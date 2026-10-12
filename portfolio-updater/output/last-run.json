@@ -1,8 +1,8 @@
 {
-  "status": "SUCCESS",
-  "compositeHash": "371799f7108a0a99779959634d72550aaec7eb0517b66bfe11be2e51ee9b6486",
-  "siteMetricsHash": "3d9ae6cf6245d82e1233695d2f1645d77cb1e0e36538d0e3e3444cbe0ec29421",
-  "generatedParagraphsHash": "3c59cbc2f963fb49e272a904fe09a207214eaa8af068f1a30d51c831e57140a4",
+  "approvedCount": 3,
   "author": "장진영",
-  "approvedCount": 3
+  "compositeHash": "8f070cc6cbd17254c09838a9a2fa4e726333bd06be4e636b7c1a9bc064169d94",
+  "generatedParagraphsHash": "3caa9a0330018d61aa145cbb67172a78032c8191c4c3c5c296cfcdff9b4f35d0",
+  "siteMetricsHash": "3d9ae6cf6245d82e1233695d2f1645d77cb1e0e36538d0e3e3444cbe0ec29421",
+  "status": "SUCCESS"
 }
