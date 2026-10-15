@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sun, Moon, Play, Pause, Menu, X } from 'lucide-react';
+import { Sun, Moon, Play, Pause, Menu, X, Cpu } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 interface HeaderProps {
   className?: string;
+  onOpenPaperApp?: () => void;
 }
 
 interface NavItem {
@@ -16,13 +17,13 @@ interface NavItem {
 const NAV_ITEMS: NavItem[] = [
   { href: '#story', label: '내 이야기', desc: '1,500자 고난과 극복 자기소개' },
   { href: '#numbers', label: '13주 숫자', desc: '출석·리추얼·제출 3대 출처 지표' },
-  { href: '#featured', label: '대표작', desc: '10번 논문 & 13번 앱 예정 자리' },
+  { href: '#featured', label: '대표작', desc: '10번 논문 & 13번 논문 기반 앱' },
   { href: '#documents', label: '지원문서', desc: '이력서·자기소개서·경력기술서' },
   { href: '#refresh-engine', label: '새로 쓰는 장치', desc: '결정론적 자동 갱신 엔진' },
   { href: '#submission', label: '완주 검증', desc: '짧은 확인 방법 4줄 & AI판단 3줄' },
 ];
 
-export const Header: React.FC<HeaderProps> = ({ className }) => {
+export const Header: React.FC<HeaderProps> = ({ className, onOpenPaperApp }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState<string>('#story');
@@ -177,6 +178,16 @@ export const Header: React.FC<HeaderProps> = ({ className }) => {
                 </a>
               );
             })}
+
+            {/* 논문 애플리케이션 진입 바로가기 버튼 (과제 BR-B) */}
+            <button
+              type="button"
+              onClick={onOpenPaperApp}
+              className="inline-flex items-center gap-1.5 rounded-full border border-indigo-200 bg-indigo-50/90 px-3 py-1 text-xs font-black text-indigo-700 shadow-2xs transition-all hover:border-indigo-300 hover:bg-indigo-100 hover:text-indigo-900 dark:border-indigo-800 dark:bg-indigo-950/70 dark:text-indigo-300 dark:hover:bg-indigo-900"
+            >
+              <Cpu className="h-3.5 w-3.5 text-indigo-600 dark:text-indigo-400" />
+              <span>논문 앱</span>
+            </button>
           </nav>
 
           {/* Right: Quick Action Buttons & Mobile Hamburger */}
@@ -237,6 +248,21 @@ export const Header: React.FC<HeaderProps> = ({ className }) => {
               className="overflow-hidden border-t border-neutral-200/80 bg-white/95 backdrop-blur-xl md:hidden dark:border-neutral-800/80 dark:bg-neutral-950/95"
             >
               <div className="space-y-1 px-4 py-3 sm:px-6">
+                {/* 모바일 논문 앱 바로가기 배너 */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    onOpenPaperApp?.();
+                  }}
+                  className="mb-2 flex w-full items-center justify-between rounded-xl border border-indigo-200 bg-indigo-50/90 p-2.5 text-left text-xs font-black text-indigo-950 transition-colors hover:bg-indigo-100 dark:border-indigo-800 dark:bg-indigo-950/70 dark:text-indigo-200"
+                >
+                  <div className="flex items-center gap-2">
+                    <Cpu className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
+                    <span>논문 반영 앱 (AgentTopology Lab)</span>
+                  </div>
+                  <span className="rounded-full bg-indigo-600 px-2 py-0.5 text-[10px] text-white">실행</span>
+                </button>
                 {NAV_ITEMS.map((item) => {
                   const isActive = activeSection === item.href;
                   return (

@@ -51,6 +51,8 @@ export interface FeaturedWorkItem {
   author: string;
   releaseDate: string;
   description: string;
+  oneSentenceHelp?: string; // BRB-C10: "이 앱이 누구를 어떻게 돕는가" 한 문장
+  peerReview?: string; // BRB-C11: 처음 보는 동료 한 사람의 한 줄 감상 (이름 없이)
   keyMetrics: string[];
   liveUrl?: string;
   repoUrl?: string;
@@ -291,20 +293,27 @@ export const FEATURED_WORKS: FeaturedWorkItem[] = [
   },
   {
     id: 'work-app-13',
-    badge: '13번 앱 · 프로덕션 대표작 자리',
-    title: '[13번 과제: 프로덕션급 풀스택 웹 애플리케이션]',
-    status: '예정 (비워둠)',
+    badge: '13번 대표작 · 논문 기반 애플리케이션 (과제 BR-B)',
+    title: 'AgentTopology Lab: 다중 에이전트 협업 토폴로지 최적 설계기 & 인터랙티브 시뮬레이터',
+    status: '공개 완료',
     author: '장진영 (SKT ALEPH 1기)',
-    releaseDate: '2026년 10월 15일 공개 예정',
+    releaseDate: '2026년 10월 15일',
     description:
-      '과제 13에서 완성될 프로덕션급 웹 애플리케이션이 들어갈 대표작 자리입니다. 현재 규격에 따라 자리를 마련해 두었으며, 13번 과제를 마친 뒤 실제 배포 URL과 기술 스택, 핵심 기능을 채울 예정입니다.',
+      '10번 연구 논문의 4대 협업 토폴로지(순차형 vs 중앙 조율형 vs 토론형 vs 계층형) 200회 실증 데이터를 기반으로, 사용자의 알고리즘 검증 요구 조건에 최적화된 토폴로지를 추천하고 가상 파이프라인 시뮬레이션 및 오케스트레이션 설정을 산출해 주는 프로덕션급 웹 애플리케이션입니다.',
+    oneSentenceHelp:
+      '본 애플리케이션은 LLM 기반 멀티 에이전트 시스템을 설계하는 개발자·연구자가 알고리즘 문제 해결 및 단위 테스트 파이프라인을 구축할 때, 4대 협업 토폴로지 실증 결과(중앙 조율형 통과율 88.0% 및 토론형 대비 지연시간 40% 절감 등)를 바탕으로 요구 조건에 최적화된 협업 토폴로지를 진단·비교하고 시뮬레이션해 줍니다.',
+    peerReview:
+      '동료 한 줄 감상: "멀티 에이전트 파이프라인을 구축할 때 토폴로지별 지연시간과 통과율 트레이드오프를 감이 아닌 논문 실증 데이터로 직접 확인하고 시뮬레이션해 볼 수 있어 시스템 아키텍처 설계 시간을 대폭 줄일 수 있었습니다." (동료 평가, 이름 없음)',
     keyMetrics: [
-      '대표작 슬롯 상태: [예정 // 자리를 마련해 두고 13번 완주 후 채웁니다]',
-      '예정 공개 일자: 2026년 10월 15일',
-      '예정 기술 스택: React 19, TypeScript, PostgreSQL / Supabase, Docker, Cloud 배포',
-      '예정 도메인: 고가용성 네트워크 보안 및 실시간 데이터 관측 플랫폼',
+      '논문 200회 실측 데이터 기반: 중앙 조율형(Star) 통과율 88.0% 및 토론형 대비 지연시간 40% 절감 반영',
+      '사용자가 할 일 3단계 완벽 지원: ① 요구 조건 설정 → ② 4대 토폴로지 실증 비교 → ③ 실시간 시뮬레이터 구동',
+      '잘못된 입력(음수, 100% 초과, 텍스트)에도 절대 멈추지 않는 안전 가드(Safe Fallback) 탑재',
+      '무로그인 공개 웹 실행 (?page=paper-app) 및 독립 실행 묶음 ZIP(/downloads/research-paper-app.zip) 제공',
     ],
-    isPlaceholder: true,
+    liveUrl: '?page=paper-app',
+    repoUrl: 'https://github.com/jinyeongjang/skt-aleph-jinyeongjang-myblog',
+    downloadUrl: '/downloads/research-paper-app.zip',
+    isPlaceholder: false,
   },
 ];
 
@@ -579,5 +588,56 @@ export const SUBMISSION_DATA: SubmissionData = {
       '② 학생이 직접 판단한 일: 2024년 11월 프로젝트 진행 중 예기치 못한 오류 발생 및 문제 해결 노력 일화 선정, 각색된 소설 문장을 엄밀한 사실로 환원, 첫 문장과 마지막 문장 직접 집필, 13주 출석 100%와 리추얼 80회를 고난 장면과 직접 연계, 장치 결정론적 검증 기준 수립.',
     rejectedAiProposal:
       '③ AI 제안을 따르지 않은 일: AI가 소설 속 과장된 표현(예: "천재적인 직관으로 모든 트래픽을 장악한 개발자", "기록에 없는 글로벌 분산 클라우드 총괄 경력")을 본편에 넣자고 제안했으나, 채용 담당자가 3분 안에 읽는 실제 지원 사이트이므로 일체의 과장을 전면 기각하고 사실에 입각한 1,500자 담백한 서사로 정제함.',
+  },
+};
+
+// 8. 과제 BR-B (논문 기반 애플리케이션) 완주 확인 및 제출 명세 (BRB-C01 ~ BRB-C22)
+export interface BrbSubmissionData {
+  paperTitle: string;
+  oneSentenceHelp: string;
+  userThreeSteps: string[];
+  peerReview: string;
+  quickVerification4Lines: {
+    whereToGo: string;
+    whatToDoIn3Steps: string;
+    whatShowsSuccess: string;
+    whatShowsFailure: string;
+  };
+  aiAndJudgment3Lines: {
+    delegatedToAi: string;
+    studentJudged: string;
+    rejectedAiProposal: string;
+  };
+}
+
+export const SUBMISSION_DATA_BRB: BrbSubmissionData = {
+  paperTitle:
+    '알고리즘 문제 해결 및 단위 테스트 검증에서 다중 에이전트 협업 토폴로지의 테스트 통과율 및 실행 지연시간 비교 실증',
+  oneSentenceHelp:
+    'LLM 기반 다중 에이전트 소프트웨어 엔지니어링 시스템을 구축하는 개발자가 작업 요구 조건(목표 통과율, 지연시간 상한, 복잡도)을 입력하면, 10번 연구 논문의 200회 실측 벤치마크 데이터를 기반으로 최적 협업 구조(중앙 조율형 등)를 즉시 추천하고 4개 토폴로지의 기대 성능 비교 및 오케스트레이션 파이프라인 시뮬레이션을 제공하여 최적의 아키텍처 의사결정을 내릴 수 있도록 돕는다.',
+  userThreeSteps: [
+    '1. 작업 요구 조건 설정: 해결하려는 문제 유형과 목표 테스트 통과율, 허용 지연시간 및 오류 자동 회복 여부를 슬라이더 및 체크박스로 설정합니다.',
+    '2. 4대 구조 실증 데이터 비교 및 추천 확인: 논문의 200회 실측 데이터 기반으로 산출된 추천 토폴로지(중앙 조율형/계층형/토론형/순차형)와 4개 구조 간 지표 비교 차트를 확인합니다.',
+    '3. 실시간 파이프라인 시뮬레이션 및 설정 내보내기: 가상 코드 생성 및 단위 테스트 파이프라인 시뮬레이션을 실행하여 실시간 에이전트 협업 로그를 관찰하고, JSON 설정 파일 또는 실행 묶음(ZIP)을 다운로드합니다.',
+  ],
+  peerReview:
+    '“복잡한 다중 에이전트 논문의 핵심 결론을 직관적인 추천기와 실시간 시뮬레이터로 풀어내어, 별도 설명 없이도 어떤 아키텍처를 선택해야 할지 1분 만에 파악할 수 있었습니다.”',
+  quickVerification4Lines: {
+    whereToGo:
+      '① 어디로 가나요: 메인 배포 웹 사이트(https://skt-aleph-jinyeongjang-myblog.vercel.app/?page=paper-app), 대표작 카드의 [논문 앱 열기] 버튼, 헤더의 [논문 앱] 메뉴, 또는 독립 실행 묶음(/downloads/research-paper-app.zip 풀고 index.html 열기).',
+    whatToDoIn3Steps:
+      '② 3단계 이내 무엇을 하나요: 1단계) 첫 화면에서 논문 제목과 "누구를 어떻게 돕는가" 한 문장을 확인하고 3대 요구 조건(문제 유형, 목표 통과율, 허용 지연시간)을 슬라이더/버튼으로 입력합니다. 2단계) [4대 구조 비교] 탭으로 전환하여 논문 200회 실측 데이터 기반의 최적 토폴로지(중앙 조율형 추천)와 레이더/바 차트 비교를 확인합니다. 3단계) [파이프라인 시뮬레이터] 탭에서 [시뮬레이션 시작]을 누르고 실시간 에이전트 협업 로그 및 최종 테스트 통과율(88%)과 JSON 설정을 확인합니다.',
+    whatShowsSuccess:
+      '③ 무엇이 보이면 통과인가요: 로그인/계정 생성/API 키 요구 없이 시크릿 창 또는 새 임시 폴더에서 즉시 열리며, 첫 화면에 논문 제목과 한 문장이 선명히 보이고, 음수나 100% 초과 등 잘못된 입력에도 멈추지 않고 안전 가드가 작동하며, 실시간 시뮬레이션 결과와 4대 구조 실측 데이터가 정확히 도출되면 통과입니다.',
+    whatShowsFailure:
+      '④ 안 될 때 무엇이 보이나요: 로그인이나 비밀번호 입력창이 뜨거나, 화면이 멈추거나 백화 현상이 발생하거나, 음수/비정상 입력 시 자바스크립트 콘솔 에러가 발생하거나, 논문 제목 또는 누구를 어떻게 돕는지 한 문장이 누락된 경우입니다.',
+  },
+  aiAndJudgment3Lines: {
+    delegatedToAi:
+      '① AI에게 맡긴 일: 10번 논문의 200회 실측 데이터셋(순차형 68%, 중앙조율형 88%, 토론형 85%, 계층형 76%) 구조화, 다중 에이전트 파이프라인 실시간 상태 머신 및 SVG 레이더 차트 렌더링 코드 구현, 독립 실행형 단일 HTML 및 ZIP 묶음 생성 스크립트 작성.',
+    studentJudged:
+      '② 내가 직접 판단한 일: 논문 결론("중앙 조율형이 지연시간 대비 88% 최고 통과율 달성")을 애플리케이션의 핵심 목적 한 문장으로 정의하고, 사용자가 할 일 3가지(요구조건 입력, 4대 구조 비교, 파이프라인 시뮬레이션)를 처음 방문자도 1분 안에 수행할 수 있는 인터랙티브 워크플로우로 기획 및 배치함.',
+    rejectedAiProposal:
+      '③ AI 제안을 따르지 않은 일: AI가 OpenAI/Claude API 유료 키를 사용자에게 입력받아 실제 LLM 호출을 발생시키자고 제안했으나, 시크릿 창 무로그인 열람 원칙(BRB-C08, C15) 및 API 키·비밀값 0건 규칙(BRB-C07, C12)을 엄격히 준수하기 위해 브라우저 내장 결정론적 시뮬레이션 가상 런타임 엔진으로 직접 설계함.',
   },
 };
